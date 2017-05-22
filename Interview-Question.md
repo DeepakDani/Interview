@@ -10,5 +10,6 @@
 hashset and hash map diffrence.
 how we can remove reduce part??
 how more than one files can be access in mapreduce ?
-
+how to strt all services?
+what is xml files?
 
