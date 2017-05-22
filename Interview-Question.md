@@ -7,9 +7,10 @@
  3. How file of 100MB will be stored in Hadoop 
 4. How I will update data in hive files 
 5. How to read csv file of 10 gb and store it in database as it is within few seconds.
-hashset and hash map diffrence.
-how we can remove reduce part??
-how more than one files can be access in mapreduce ?
-how to strt all services?
-what is xml files?
+1. hashset and hash map diffrence.
+1. how we can remove reduce part??
+1. how more than one files can be access in mapreduce ?
+1. how to strt all services?
+1. what is xml files?
+hadoop tasktracker &
 
