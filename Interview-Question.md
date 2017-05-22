@@ -14,3 +14,7 @@
 1. what is xml files?
 hadoop tasktracker &
 
+1. If you are using Hadoop 2.2.0 which has YARN framework, there is no jobtracker in it. Its functionality is split and replaced by ResourceManager and ApplicationMaster. Here is expected jps prinout while running YARN
+
+
+
