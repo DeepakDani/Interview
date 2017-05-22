@@ -7,6 +7,8 @@ hive : UDF(https://www.cloudera.com/documentation/enterprise/5-8-x/topics/cm_mc_
 http://www.bigdata-careers.com/?page_id=63
 
 
+http://bangalore.startups-list.com/startups/big_data%20analytics
+
 
 --> we can load multiple files into hive table .
 load data local inpath'/home/training/Desktop/RATNESH/rk' overwrite into table tez; 
