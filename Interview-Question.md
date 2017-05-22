@@ -8,7 +8,7 @@
 4. How I will update data in hive files 
 5. How to read csv file of 10 gb and store it in database as it is within few seconds.
 hashset and hash map diffrence.
-
-
+how we can remove reduce part??
+how more than one files can be access in mapreduce ?
 
 
