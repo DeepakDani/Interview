@@ -14,7 +14,15 @@
 1. what is xml files?
 hadoop tasktracker &
 
-1. If you are using Hadoop 2.2.0 which has YARN framework, there is no jobtracker in it. Its functionality is split and replaced by ResourceManager and ApplicationMaster. Here is expected jps prinout while running YARN
+1. If you are using Hadoop 2.2.0 which has YARN framework, there is no jobtracker in it. Its functionality is split and replaced by ResourceManager and ApplicationMaster. Here is expected jps prinout while running YARN1. 
+
+Q.
+In order to handle the Objects in Hadoop way. For example, hadoop uses Text instead of java's String. The Text class in hadoop is similar to a java String, however, Text implements interfaces like Comparable, Writable and WritableComparable.
+
+1. These interfaces are all necessary for MapReduce; the Comparable interface is used for comparing when the reducer sorts the keys, and Writable can write the result to the local disk. It does not use the java Serializable because java Serializable is too big or too heavy for hadoop, Writable can serializable the hadoop Object in a very light way.
+
+1. Why does Hadoop need classes like Text or IntWritable instead of String or Integer?
+
 
 
 
