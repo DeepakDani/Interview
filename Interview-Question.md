@@ -35,4 +35,6 @@ In order to handle the Objects in Hadoop way. For example, hadoop uses Text inst
 
 But when we pass particular directory with –warehouse-dir it will treat directory as parent directory and create sub directory inside the parent directory with the name of table name.
 
+The SerDe interface allows you to instruct Hive as to how a record should be processed. A SerDe is a combination of a Serializer and a Deserializer (hence, Ser-De). The Deserializer interface takes a string or binary representation of a record, and translates it into a Java object that Hive can manipulate. The Serializer, however, will take a Java object that Hive has been working with, and turn it into something that Hive can write to HDFS or another supported system. Commonly, Deserializers are used at query time to execute SELECT statements, and Serializers are used when writing data, such as through an INSERT-SELECT statement.
+
 
