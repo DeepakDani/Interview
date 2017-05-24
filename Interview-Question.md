@@ -25,4 +25,10 @@ In order to handle the Objects in Hadoop way. For example, hadoop uses Text inst
 -->For effectiveness of Hadoop, the serialization/de-serialization process should be optimized because huge number of remote calls happen between the nodes in the cluster. So the serialization format should be fast, compact, extensible and interoperable. Due to this reason, Hadoop framework has come up with one IO classes to replace java primitive data types. e.g. IntWritbale for int, LongWritable for long, Text for String etc.
 
 
+1. Below parameter points to default hive table location.It can be used for dev purpose, where you just want to perform some tests on internal tables.
+
+--warehouse-dir
+1. Below parameter points to some hdfs location, where you can mount external hive tables.This is useful in production environment, where you want every data to be available to some external dir and external table.
+
+--target-dir
 
