@@ -30,5 +30,9 @@ In order to handle the Objects in Hadoop way. For example, hadoop uses Text inst
 --warehouse-dir
 1. Below parameter points to some hdfs location, where you can mount external hive tables.This is useful in production environment, where you want every data to be available to some external dir and external table.
 
---target-dir
+
+---In my last article I have explained how we can use - -target-dir to import data in particular directory. But the limitation of target-dir is that the given directory which we will pass it to the argument must not create earlier. If this directory already created then an error will be thrown by the SQOOP Tool.
+
+But when we pass particular directory with –warehouse-dir it will treat directory as parent directory and create sub directory inside the parent directory with the name of table name.
+
 
