@@ -39,6 +39,22 @@ ORCFILE
 ORC stands for Optimized Row Columnar which means it can store data in an optimized way than the other file formats. ORC reduces the size of the original data up to 75%. As a result the speed of data processing also increases. ORC shows better performance than Text, Sequence and RC file formats.
 An ORC file contains rows data in groups called as Stripes along with a file footer. ORC format improves the performance when Hive is processing the data.
 
+13. What is Partition and Combiner in MapReduce?
+
+Partition and combiner are the two phase of a MapReduce operation those are executed before the reduce phase and after the map phase. Here are the details of partition and combiner in MapReduce.
+
+Combiner: Combiner works like a mini reducer in Map phase which takes the input from map phase. It performs local reduce function on mapper result before they are distributed further. Once combiner functionality is executed (if required) then the output is passed to the reducer phase.
+
+Partition: Partition comes into picture when you are using more than one reducer. Partition decides which reducer is responsible for a particular key.
+
+It takes the input from mapper phase or Combiner phase (if used) and then sends it across the responsible reducer based on the key. The number of partitions is equal to the number of reducers.
+
+So in partition and combiner, combiner comes first and then partition. The below image from Yahoo depicts the operation beautifully.
+
+there r three types of xml file available :
+mapred-site.xml
+core-site.xml
+hdfs-site.xml
 
 
 
