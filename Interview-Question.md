@@ -82,4 +82,8 @@ Ans: This is really a good question. As the data has been kept manually in all t
  Where the Mapper’s Intermediate data will be stored?
 
 Ans: The mapper output (which is intermediate data) is stored on the Local file system (not in HDFS) of each mapper nodes. This is a temporary directory location which can be setup in the configuration file by the Hadoop administrator. The intermediate data is cleaned up after the Hadoop Job completes.
+------------------------------------------------------------------------------------------------------------------
+
+can we handle xml file with mapreduce?
+can u expain about couter in mapreduce?
 
