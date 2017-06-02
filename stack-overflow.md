@@ -78,4 +78,5 @@ Ans:
 you should use port number in JDBC connection string:
 further more, you also should use hostname instead for IP.
 so if output of command hostname -f is computer.name use this in JDBC connection string:
+-------------------------------------------------------------------------------------------------------
 
