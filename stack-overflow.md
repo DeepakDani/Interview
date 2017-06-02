@@ -1,11 +1,11 @@
-Sqoop error while importing to hdfs
+1. # Sqoop error while importing to hdfs
 Q1:13/12/04 02:05:39 ERROR 
 security.UserGroupInformation:PriviledgedActionException  as:hadoop      
 (auth:SIMPLE) 
 cause:java.io.FileNotFoundException:
 Ans : permissions,
 -------------------------------------------------------------------------------------------------------------------------
-2014-06-16 07:43:24,308 INFO  [main] manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+1. 2014-06-16 07:43:24,308 INFO  [main] manager.MySQLManager: Preparing to use a MySQL streaming resultset.
 2014-06-16 07:43:24,319 INFO  [main] tool.CodeGenTool: Beginning code generation
 2014-06-16 07:43:25,004 INFO  [main] manager.SqlManager: Executing SQL statement: SELECT t.* FROM textlines AS t LIMIT 1
 2014-06-16 07:43:25,026 INFO  [main] manager.SqlManager: Executing SQL statement: SELECT t.* FROM textlines AS t LIMIT 1
@@ -63,7 +63,7 @@ SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
     at org.apache.sqoop.Sqoop.runTool(Sqoop.java:229)
 Ans : This issue is related to inappropriate hadoop configuration. In my case the mapred.site.xml for hadoop was missing from ../etc/hadoop directory.
 ------------------------------------------------------------------------------------------------------------
-[root@localhost edureka]# sqoop import --connect jdbc:mysql://192.168.56.1/Edureka --table Employee --username root -P --target-dir /sqoopOut1 -m 1;
+1. [root@localhost edureka]# sqoop import --connect jdbc:mysql://192.168.56.1/Edureka --table Employee --username root -P --target-dir /sqoopOut1 -m 1;
 
 Warning: /usr/lib/hcatalog does not exist! HCatalog jobs will fail.
 Please set $HCAT_HOME to the root of your HCatalog installation.
