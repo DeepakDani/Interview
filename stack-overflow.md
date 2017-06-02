@@ -1,9 +1,9 @@
-# 1. # Sqoop error while importing to hdfs
-# Q1:13/12/04 02:05:39 ERROR 
-# security.UserGroupInformation:PriviledgedActionException  as:hadoop      
-# (auth:SIMPLE) 
-# cause:java.io.FileNotFoundException:
-# Ans : permissions,
+### ### # 1. # Sqoop error while importing to hdfs
+### ### # Q1:13/12/04 02:05:39 ERROR 
+### ### # security.UserGroupInformation:PriviledgedActionException  as:hadoop      
+### ### # (auth:SIMPLE) 
+### ### # cause:java.io.FileNotFoundException:
+### ### # Ans : permissions,
 -------------------------------------------------------------------------------------------------------------------------
 1. 2014-06-16 07:43:24,308 INFO  [main] manager.MySQLManager: Preparing to use a MySQL streaming resultset.
 2014-06-16 07:43:24,319 INFO  [main] tool.CodeGenTool: Beginning code generation
