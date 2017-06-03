@@ -87,3 +87,4 @@ Ans: The mapper output (which is intermediate data) is stored on the Local file 
 can we handle xml file with mapreduce?
 can u expain about couter in mapreduce?
 
+
