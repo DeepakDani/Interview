@@ -79,4 +79,12 @@ you should use port number in JDBC connection string:
 further more, you also should use hostname instead for IP.
 so if output of command hostname -f is computer.name use this in JDBC connection string:
 -------------------------------------------------------------------------------------------------------
+NVALIDATE METADATA Statement
+Marks the metadata for one or all tables as stale. Required after a table is created through the Hive shell, before the table is available for Impala queries. The next time the current Impala node performs a query against a table whose metadata is invalidated, Impala reloads the associated metadata before the query proceeds. This is a relatively expensive operation compared to the incremental metadata update done by the REFRESH statement, so in the common scenario of adding new data files to an existing table, prefer REFRESH rather than INVALIDATE METADATA. If you are not familiar with the way Impala uses metadata and how it shares the same metastore database as Hive, see Overview of Impala Metadata and the Metastore for background information.
 
+Syntax:
+
+INVALIDATE METADATA [[db_name.]table_name]
+By default, the cached metadata for all tables is flushed. If you specify a table name, only the metadata for that one table is flushed. Even for a single table, INVALIDATE METADATA is more expensive than REFRESH, so prefer REFRESH in the common case where you add new data files for an existing table.
+------------------------------------------------------------------------------------
+INVALIDATE METADATA and REFRESH are counterparts: INVALIDATE METADATA waits to reload the metadata when needed for a subsequent query, but reloads all the metadata for the table, which can be an expensive operation, especially for large tables with many partitions. REFRESH reloads the metadata immediately, but only loads the block location data for newly added data files, making it a less expensive operation overall.
