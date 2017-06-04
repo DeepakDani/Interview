@@ -79,12 +79,38 @@ you should use port number in JDBC connection string:
 further more, you also should use hostname instead for IP.
 so if output of command hostname -f is computer.name use this in JDBC connection string:
 -------------------------------------------------------------------------------------------------------
-NVALIDATE METADATA Statement
-Marks the metadata for one or all tables as stale. Required after a table is created through the Hive shell, before the table is available for Impala queries. The next time the current Impala node performs a query against a table whose metadata is invalidated, Impala reloads the associated metadata before the query proceeds. This is a relatively expensive operation compared to the incremental metadata update done by the REFRESH statement, so in the common scenario of adding new data files to an existing table, prefer REFRESH rather than INVALIDATE METADATA. If you are not familiar with the way Impala uses metadata and how it shares the same metastore database as Hive, see Overview of Impala Metadata and the Metastore for background information.
+1.I have this code in which i have set one mapper and one reducer. want to include one more mapper and a reducer for doing further jobs. The problem is that i have to take the output file of the first map reduce job as the input to the next map reduce job.Is it possible to do that?if yes then how can i do it?
+ANS:
+yes its possible to do that. you can check the following tutorial to see how chaining occurs. http://gandhigeet.blogspot.com/2012/12/as-discussed-in-previous-post-hadoop.html
 
-Syntax:
+Make sure you delete the intermediate output data in HDFS which will be created by each MR phase by using fs.delete(intermediateoutputPath);
+public class ChainJobs extends Configured implements Tool {
 
-INVALIDATE METADATA [[db_name.]table_name]
-By default, the cached metadata for all tables is flushed. If you specify a table name, only the metadata for that one table is flushed. Even for a single table, INVALIDATE METADATA is more expensive than REFRESH, so prefer REFRESH in the common case where you add new data files for an existing table.
-------------------------------------------------------------------------------------
-INVALIDATE METADATA and REFRESH are counterparts: INVALIDATE METADATA waits to reload the metadata when needed for a subsequent query, but reloads all the metadata for the table, which can be an expensive operation, especially for large tables with many partitions. REFRESH reloads the metadata immediately, but only loads the block location data for newly added data files, making it a less expensive operation overall.
+ private static final String OUTPUT_PATH = "intermediate_output";
+
+ @Override
+ public int run(String[] args) throws Exception {
+  /*
+   * Job 1
+   */
+  Configuration conf = getConf();
+  FileSystem fs = FileSystem.get(conf);
+  Job job = new Job(conf, "Job1");
+  job.setJarByClass(ChainJobs.class);
+
+  job.setMapperClass(MyMapper1.class);
+  job.setReducerClass(MyReducer1.class);
+
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(IntWritable.class);
+
+  job.setInputFormatClass(TextInputFormat.class);
+  job.setOutputFormatClass(TextOutputFormat.class);
+
+  TextInputFormat.addInputPath(job, new Path(args[0]));
+  TextOutputFormat.setOutputPath(job, new Path(OUTPUT_PATH));
+
+  job.waitForCompletion(true); /*this goes to next command after this job is completed. your second job is dependent on your first job.*/
+
+
+  
