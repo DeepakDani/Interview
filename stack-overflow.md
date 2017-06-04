@@ -111,6 +111,17 @@ public class ChainJobs extends Configured implements Tool {
   TextOutputFormat.setOutputPath(job, new Path(OUTPUT_PATH));
 
   job.waitForCompletion(true); /*this goes to next command after this job is completed. your second job is dependent on your first job.*/
+--------------------------------------------------------------------------------------------------------------------------
+Create then build, show formatted (with column names), and drop index:
+CREATE INDEX table02_index ON TABLE table02 (column3) AS 'COMPACT' WITH DEFERRED REBUILD;
+ALTER INDEX table02_index ON table2 REBUILD;
+----------------------------------------------------------------------------------------------------------------
+Create bitmap index, build, show, and drop:
+CREATE INDEX table03_index ON TABLE table03 (column4) AS 'BITMAP' WITH DEFERRED REBUILD;
+ALTER INDEX table03_index ON table03 REBUILD;
+----------------------------------------------------------------------------------------------------------------
+You can optimize Hive queries in at least five ways: First, with a little research, you can often speed your joins by leveraging certain optimization techniques, as described on the Hive wiki. Second, column-oriented storage options can be quite helpful. Remember that the ORC file format is new as of Hive 0.11.
 
+Third, you can partition tables. Fourth, the Hive community has provided indexing. Finally, don’t forget the hive.exec.mode.local.auto configuration variable.
 
   
