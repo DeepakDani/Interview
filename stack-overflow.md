@@ -123,5 +123,83 @@ ALTER INDEX table03_index ON table03 REBUILD;
 You can optimize Hive queries in at least five ways: First, with a little research, you can often speed your joins by leveraging certain optimization techniques, as described on the Hive wiki. Second, column-oriented storage options can be quite helpful. Remember that the ORC file format is new as of Hive 0.11.
 
 Third, you can partition tables. Fourth, the Hive community has provided indexing. Finally, don’t forget the hive.exec.mode.local.auto configuration variable.
+-------------------------------------------------
+The Difference Between ROW_NUMBER(), RANK(), and DENSE_RANK()-- these r called window function
+row Number:--
+SELECT v, ROW_NUMBER() OVER(ORDER BY v)
+FROM t
+The above query returns:
 
-  
+| V | ROW_NUMBER |
+|---|------------|
+| a |          1 |
+| a |          2 |
+| a |          3 |
+| b |          4 |
+| c |          5 |
+| c |          6 |
+| d |          7 |
+
+Row()--
+SELECT v, RANK() OVER(ORDER BY v)
+FROM t
+… then the result we’re getting is this:
+
+| V | RANK |
+|---|------|
+| a |    1 |
+| a |    1 |
+| a |    1 |
+| b |    4 |
+| c |    5 |
+| c |    5 |
+| d |    7 |
+-----------------------------------------------------------------------------------------
+
+DENSE_RANK()----
+SELECT v, DENSE_RANK() OVER(ORDER BY v)
+FROM t
+… to obtain
+
+| V | DENSE_RANK |
+|---|------------|
+| a |          1 |
+| a |          1 |
+| a |          1 |
+| b |          2 |
+| c |          3 |
+| c |          3 |
+| d |          4 |
+| e |          5 |
+
+One interesting aspect of DENSE_RANK() is the fact that it “behaves like” ROW_NUMBER() when we add the DISTINCT keyword.
+
+1
+2
+SELECT DISTINCT v, DENSE_RANK() OVER(ORDER BY v)
+FROM t
+… to obtain
+
+| V | DENSE_RANK |
+|---|------------|
+| a |          1 |
+| b |          2 |
+| e |          5 |
+| d |          4 |
+| c |          3 |
+ ------------------------------------------------------------------------
+coalesce: 
+
+PRIMARY_KEY	DATEFIELD1	DATEFIELD2	DATEFIELD3
+1	NULL	NULL	1993-06-04
+The code:
+
+
+SELECT COALESCE(datefield1, datefield2, datefield3) as first_date_found
+FROM
+tblDates
+WHERE
+primary_key = 1
+
+will return ‘1993-06-04’ 
+------------------------------------------------------------------------------------------------------------------
