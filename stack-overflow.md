@@ -364,3 +364,11 @@ Considering the Cardinality within GROUP BY:
 There’s a probability where GROUP BY becomes a little bit faster, by carefully ordering a list of fields within GROUP BY in an order of high cardinality.
 
 Write select uid, gender group by uid.gender rather than writing select uid, gender group by gender, uid.
+
+-->SNAPPY for time based performance, ZLIB for resource performance(Drive Space)(But zlib is better than snaapy).
+create table mytest (
+...
+)
+STORED AS ORC
+tblproperties("orc.stripe.size"=67108864); -- 64MB Stripes
+tblproperties("orc.row.index.stride"=50000); -- 50K index strid
