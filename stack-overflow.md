@@ -203,3 +203,164 @@ primary_key = 1
 
 will return ‘1993-06-04’ 
 ------------------------------------------------------------------------------------------------------------------
+SQL is a powerful declarative language. Like other declarative languages, there is more than one way to write a SQL statement. Although each statement’s functionality is the same, it may have strikingly different performance characteristics.
+
+Let’s look at an example. Consider a click-stream event table:
+
+CREATE TABLE clicks ( timestamp date, sessionID string, url string, source_ip string)
+
+STORED as ORC tblproperties (“orc.compress” = “SNAPPY”);
+
+Each record represents a click event, and we would like to find the latest URL for each sessionID.
+
+One might consider the following approach:
+
+SELECT clicks.* FROM clicks inner join (select sessionID, max(timestamp) as max_ts from clicks
+
+group by sessionID) latest ON clicks.sessionID = latest.sessionID
+
+and clicks.timestamp = latest.max_ts;
+
+In the above query, we build a sub-query to collect the timestamp of the latest event in each session, and then use an inner join to filter out the rest.
+
+While the query is a reasonable solution—from a functional point of view—it turns out there’s a better way to re-write this query as follows:
+
+SELECT * FROM (SELECT *, RANK() over (partition by sessionID,order by timestamp desc) as rank FROM clicks) ranked_clicks WHERE ranked_clicks.rank=1;
+
+Here we use Hive’s OLAP functionality (OVER and RANK) to achieve the same thing, but without a Join. Clearly, removing an unnecessary join will almost always result in better performance, and when using big data this is more important than ever. You may find many cases where queries are not optimal — so look carefully at every query and consider if a rewrite can make it better and faster.
+
+De-normalizing data:
+
+Normalization is a standard process used to model your data tables with certain rules to deal with redundancy of data and anomalies. In simpler words, if you normalize your data sets, you end up creating multiple relational tables which can be joined at the run time to produce the results. Joins are expensive and difficult operations to perform and are one of the common reasons for performance issues . Because of that, it’s a good idea to avoid highly normalized table structures because they require join queries to derive the desired metrics.
+
+Use Vectorization:
+
+Vectorized query execution improves performance of operations like scans, aggregations, filters and joins, by performing them in batches of 1024 rows at once instead of single row each time.
+
+Introduced in Hive 0.13, this feature significantly improves query execution time, and is easily enabled with two parameters settings:
+
+set hive.vectorized.execution.enabled = true;
+
+set hive.vectorized.execution.reduce.enabled = true;
+
+Use ORC File:
+
+Hive supports ORCfile, a new table storage format that sports fantastic speed improvements through techniques like predicate push-down, compression and more.
+
+Using ORCFile for every HIVE table is extremely beneficial to get fast response times for your HIVE queries.
+
+As an example, consider two large tables A and B (stored as text files, with some columns not all specified here), and a simple query like:
+
+SELECT A.customerID, http://A.name, A.age, A.address join B.role, B.department, B.salary
+
+ON A.customerID=B.customerID;
+
+This query may take a long time to execute since tables A and B are both stored as TEXT. Converting these tables to ORCFile format will usually reduce query time significantly:
+
+CREATE TABLE A_ORC (customerID int, name string, age int, address string)
+
+STORED AS ORC tblproperties (“orc.compress" = “SNAPPY”);
+
+INSERT INTO TABLE A_ORC SELECT * FROM A;
+
+CREATE TABLE B_ORC (customerID int, role string, salary float, department string)
+
+STORED AS ORC tblproperties (“orc.compress" = “SNAPPY”);
+
+INSERT INTO TABLE B_ORC SELECT * FROM B;
+
+SELECT A_ORC.customerID, A_ORC.name, A_ORC.age, A_ORC.address join B_ORC.role, B_ORC.department, B_ORC.salary ON A_ORC.customerID=B_ORC.customerID;
+
+ORC supports compressed storage (with ZLIB or as shown above with SNAPPY) but also uncompressed storage.
+
+Converting base tables to ORC is often the responsibility of your ingest team, and it may take them some time to change the complete ingestion process due to other priorities. The benefits of ORCFile are so tangible that I often recommend a do-it-yourself approach as demonstrated above – convert A into A_ORC and B into B_ORC and do the join that way, so that you benefit from faster queries immediately, with no dependencies on other teams.
+
+Cost Based Query Optimization:
+
+Hive optimizes each query’s logical and physical execution plan before submitting for final execution. These optimizations are not based on the cost of the query – that is, until now.
+
+A recent addition to Hive, CBO, performs further optimizations based on query cost, resulting in potentially different decisions: how to order joins, which type of join to perform, degree of parallelism and others.
+
+To use CBO, set the following parameters at the beginning of your query:
+
+set hive.cbo.enable=true;
+
+set hive.compute.query.using.stats=true;
+
+set hive.stats.fetch.column.stats=true;
+
+set hive.stats.fetch.partition.stats=true;
+
+Then, prepare the data for CBO by running Hive’s “analyze” command to collect various statistics on the tables for which we want to use CBO.
+
+For example, in a table tweets we want to collect statistics about the table and about 2 columns: “sender” and “topic”:
+
+analyze table tweets compute statistics;
+
+analyze table tweets compute statistics for columns sender, topic;
+
+With HIVE 0.14 (on HDP 2.2) the analyze command works much faster, and you don’t need to specify each column, so you can just issue:
+
+analyze table tweets compute statistics for columns;
+
+That’s it. Now executing a query using this table should result in a different execution plan that is faster because of the cost calculation and different execution plan created by Hive.
+
+Parallel execution:
+
+Hadoop can execute MapReduce jobs in parallel, and several queries executed on Hive automatically use this parallelism. However, single, complex Hive queries commonly are translated to a number of MapReduce jobs that are executed by default sequencing. Often though, some of a query’s MapReduce stages are not interdependent and could be executed in parallel. They then can take advantage of spare capacity on a cluster and improve cluster utilization while at the same time reducing the overall query executions time. The configuration in Hive to change this behavior is merely switching a single flag
+
+SET hive.exec.parallel=true.
+
+Input Format Selection:
+
+Input formats play a critical role in Hive performance. For example JSON, the text type of input formats, is not a good choice for a large production system where data volume is really high. These type of readable formats actually take a lot of space and have some overhead of parsing ( e.g JSON parsing ). To address these problems, Hive comes with columnar input formats like RCFile, ORC etc. Columnar formats allow you to reduce the read operations in analytics queries by allowing each column to be accessed individually. There are some other binary formats like Avro sequence files, Thrift and ProtoBuf, which can be helpful in various use cases too.
+
+Partitioning Tables:
+
+Hive partitioning is an effective method to improve the query performance on larger tables . Partitioning allows you to store data in separate sub-directories under table location. It greatly helps the queries which are queried upon the partition key(s). Although the selection of partition key is always a sensitive decision, it should always be a low cardinal attribute, e.g. if your data is associated with time dimension, then date could be a good partition key. Similarly, if data has association with location, like a country or state, then it’s a good idea to have hierarchical partitions like country/state.
+
+Bucketing:
+
+Bucketing improves the join performance if the bucket key and join keys are common. Bucketing in Hive distributes the data in different buckets based on the hash results on the bucket key. It also reduces the I/O scans during the join process if the process is happening on the same keys (columns).
+
+Additionally it’s important to ensure the bucketing flag is set (SET hive.enforce.bucketing=tr
+
+ue;) every time before writing data to the bucketed table. To leverage the bucketing in the join operation we should SET hive.optimize.bucketmapjo
+
+in=true. This setting hints to Hive to do bucket level join during the map stage join. It also reduces the scan cycles to find a particular key because bucketing ensures that the key is present in a certain bucket.
+
+Sampling:
+
+Sampling allows users to take a subset of dataset and analyze it, without having to analyze the entire data set. If a representative sample is used, then a query can return meaningful results as well as finish quicker and consume fewer compute resources.
+
+Hive offers a built-in TABLESAMPLE clause that allows you to sample your tables. TABLESAMPLE can sample at various granularity levels – it can return only subsets of buckets (bucket sampling), or HDFS blocks (block sampling), or only first N records from each input split. Alternatively, you can implement your own UDF that filters out records according to your sampling algorithm.
+
+Map join:
+
+Map joins are really efficient if a table on the other side of a join is small enough to fit in the memory . Hive supports a parameter, hive.auto.convert.join, which when it’s set to “true” suggests that Hive try to map join automatically.
+
+Optimize join performance:
+
+The next example extends the above discussion of using clustered fields (bucketed fields) to improve join performance. The optimization is turned off by default for many versions of Hive. Enable the optimization with the following settings.
+
+set 	hive.optimize.bucketmapjoin=true;
+set 	hive.optimize.bucketmapjoin.sortedmerge=true;
+Note: The second setting takes advantage of clustered fields which are also sorted.
+
+Compress map/reduce output:
+
+Compression techniques significantly reduce the intermediate data volume, which internally reduces the amount of data transfers between mappers and reducers. All this generally occurs over the network. Compression can be applied on the mapper and reducer output individually. Keep in mind that gzip compressed files are not splittable. That means this should be applied with caution. A compressed file size should not be larger than a few hundred megabytes . Otherwise it can potentially lead to an imbalanced job. Other options of compression codec could be snappy, lzo, bzip, etc.
+
+For map output compression set mapred.compress.map.output to true
+For job output compression set mapred.output.compress to true
+Avoid Global sorting:
+
+Global sorting in Hive can be achieved with ORDER BY but this comes with a drawback as ORDER BY produces the result by setting the number of reducers to 1, making it very inefficient for large datasets.
+
+In Hive, ORDER BY is not a very fast operation because it forces all the data to go into the same reducer node. By doing this, Hive ensures that the entire dataset is totally ordered.
+
+Considering the Cardinality within GROUP BY:
+
+There’s a probability where GROUP BY becomes a little bit faster, by carefully ordering a list of fields within GROUP BY in an order of high cardinality.
+
+Write select uid, gender group by uid.gender rather than writing select uid, gender group by gender, uid.
