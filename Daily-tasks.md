@@ -13,4 +13,5 @@ http://bangalore.startups-list.com/startups/big_data%20analytics
 --> we can load multiple files into hive table .
 load data local inpath'/home/training/Desktop/RATNESH/rk' overwrite into table tez; 
 
+https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/
 
