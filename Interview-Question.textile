@@ -118,4 +118,15 @@ HDFS
 
 Blocks of HDFS files are replicated across the cluster (by default, three times) to prevent data loss when hard drives or whole servers fail.
 Modes
-Strict—these are used to protect large data in partitioned tables.Instead of extracting all data from partitioned table strict mode is safety measure which allows queries with where cause only on partitones
+Strict—these are used to protect large data in partitioned tables.Instead of extracting all data from partitioned table strict mode is safety measure which allows queries with where cause only on partitones.
+
+Oredrby/sortby/distributedby/clusterby
+Orderby-ascending or desc pushing all dat through one reducer
+
+Sortby-orders data at each of n reducers but each reducer can receive overlapping ranges of data.you end up with one or more sotrted files with overlapping ranges
+
+Distributeby-ensures each of n reducers gets non overlapping ranges of x,but doesnot sort the o/p of each reducer.u end with n or more unsorted files with non overlapping ranges
+
+Clusterby-ensures each of n reducers gets non overlapping ranges,then sorts by those changes at reducers.this gives global ordering and is same as doing distributed by and sort by.you end up with n or more sorted files with non overlapping ranges.
+Speculative execution is a feature of Hadoop that launches a certain number of duplicate tasks.
+While this consumes more resources computing duplicate copies of data.
