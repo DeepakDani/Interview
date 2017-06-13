@@ -87,4 +87,35 @@ Ans: The mapper output (which is intermediate data) is stored on the Local file 
 can we handle xml file with mapreduce?
 can u expain about couter in mapreduce?
 
+What is a SerDe?
+The SerDe interface allows you to instruct Hive as to how a record should be processed. The Deserializer interface takes a string or binary representation of a record, and translates it into a Java object that Hive can manipulate. The Serializer, however, will take a Java object that Hive has been working with, and turn it into something that Hive can write to HDFS or another supported system. Deserializers are used at query time to execute SELECT statements, and Serializers are used when writing data, such as through an INSERT-SELECT statement.
+----Collection Data types
 
+SRTUCT,MAP,ARRAY
+
+STRUCT
+STRUCT {first STRING; last STRING}, then
+the first name field can be referenced using name.first.
+struct(‘John’, ‘Doe’)
+
+CREATE TABLE employees (
+name STRING,
+salary FLOAT,
+subordinates ARRAY<STRING>,
+deductions MAP<STRING, FLOAT>,
+address STRUCT<street:STRING, city:STRING, state:STRING, zip:INT>);
+
+Avro
+
+Avro is a serialization format developed to address some of the common problems associated with evolving other serialization formats.
+
+Some of the benefits are:
+rich data structures, fast binary format, support for remote procedure calls, and built-in schema evolution
+JSON
+JSON (JavaScript Object Notation) is a lightweight data serialization format used commonly in web-based applications.
+HDFS
+(HDFS) A distributed, resilient file system for data storage (optimized for scanning large contiguous blocks of data on hard disks.) Distribution across a cluster provides horizontal scaling of data storage.
+
+Blocks of HDFS files are replicated across the cluster (by default, three times) to prevent data loss when hard drives or whole servers fail.
+Modes
+Strict—these are used to protect large data in partitioned tables.Instead of extracting all data from partitioned table strict mode is safety measure which allows queries with where cause only on partitones
