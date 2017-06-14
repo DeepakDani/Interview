@@ -130,3 +130,16 @@ Distributeby-ensures each of n reducers gets non overlapping ranges of x,but doe
 Clusterby-ensures each of n reducers gets non overlapping ranges,then sorts by those changes at reducers.this gives global ordering and is same as doing distributed by and sort by.you end up with n or more sorted files with non overlapping ranges.
 Speculative execution is a feature of Hadoop that launches a certain number of duplicate tasks.
 While this consumes more resources computing duplicate copies of data.
+-----------------------------------------------------------------------------------------
+word count program using hive
+CREATE TABLE docs (line STRING);
+LOAD DATA INPATH 'docs' OVERWRITE INTO TABLE docs;
+CREATE TABLE word_counts AS
+SELECT word, count(1) AS count FROM
+(SELECT explode(split(line, '\\s')) AS word FROM docs) w
+GROUP BY word
+ORDER BY word;
+------------------------------------------------------------
+String_split
+SELECT SPLIT_STRING('apple, pear, melon', ',', 1)--apple
+
