@@ -373,3 +373,13 @@ STORED AS ORC
 tblproperties("orc.stripe.size"=67108864); -- 64MB Stripes
 tblproperties("orc.row.index.stride"=50000); -- 50K index strid
 ----------------------------------------------------------------------------------------
+difference bw hiveql,impalaql, and sparksql
+for  connecting to the cluster -- set -o vi
+                                   ssh <cluster name >
+-- Hive works on the top of MR and Yarn.
+-- for changeing setting from MR to Tez in Hive .
+set hive.execution.engine;
+o/p hive.execution.engine=mr
+set hive.execution.engine=tez;
+
+
