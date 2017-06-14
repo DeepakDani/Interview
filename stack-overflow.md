@@ -372,3 +372,4 @@ create table mytest (
 STORED AS ORC
 tblproperties("orc.stripe.size"=67108864); -- 64MB Stripes
 tblproperties("orc.row.index.stride"=50000); -- 50K index strid
+----------------------------------------------------------------------------------------
