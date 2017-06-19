@@ -381,5 +381,6 @@ for  connecting to the cluster -- set -o vi
 set hive.execution.engine;
 o/p hive.execution.engine=mr
 set hive.execution.engine=tez;
-
+--------------------------------------------------------------------------------------------------------
+http://www.evoketechnologies.com/blog/hadoop-counters-mapreduce-api-example/
 
