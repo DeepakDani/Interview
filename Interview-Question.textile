@@ -146,4 +146,4 @@ ORDER BY word;
 String_split
 SELECT SPLIT_STRING('apple, pear, melon', ',', 1)--apple
 ---------------------------------------------------------------------------------
-
+http://gandhigeet.blogspot.in/2012/12/hadoop-mapreduce-chaining.html
