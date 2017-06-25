@@ -147,3 +147,46 @@ String_split
 SELECT SPLIT_STRING('apple, pear, melon', ',', 1)--apple
 ---------------------------------------------------------------------------------
 http://gandhigeet.blogspot.in/2012/12/hadoop-mapreduce-chaining.html
+https://intellipaat.com/interview-question/big-data-hadoop-interview-questions/
+https://www.linkedin.com/pulse/distributed-cache-hadoop-examples-gaurav-singh
+----------------------------------------------------------------------------------------------------
+What is distributed cache and what are its benefits?
+Distributed Cache, in Hadoop, is a service by MapReduce framework to cache files when needed. Learn more in this MapReduce Tutorial now. Once a file is cached for a specific job, hadoop will make it available on each data node both in system and in memory, where map and reduce tasks are executing.Later, you can easily access and read the cache file and populate any collection (like array, hashmap) in your code.
+
+$ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz
+     $ bin/hadoop fs -copyFromLocal mytargz.tar.gz /myapp/mytargz.tar.gz
+     
+     2. Setup the application's JobConf:
+     
+     JobConf job = new JobConf();
+     DistributedCache.addCacheFile(new URI("/myapp/lookup.dat#lookup.dat"), 
+                                   job);
+     DistributedCache.addCacheArchive(new URI("/myapp/map.zip", job);
+     DistributedCache.addFileToClassPath(new Path("/myapp/mylib.jar"), job);
+     DistributedCache.addCacheArchive(new URI("/myapp/mytar.tar", job);
+     DistributedCache.addCacheArchive(new URI("/myapp/mytgz.tgz", job);
+     DistributedCache.addCacheArchive(new URI("/myapp/mytargz.tar.gz", job);
+     
+     3. Use the cached files in the Mapper
+     or Reducer:
+     
+     public static class MapClass extends MapReduceBase  
+     implements Mapper<K, V, K, V> {
+     
+       private Path[] localArchives;
+       private Path[] localFiles;
+       
+       public void configure(JobConf job) {
+         // Get the cached archives/files
+         File f = new File("./map.zip/some/file/in/zip.txt");
+       }
+       
+       public void map(K key, V value, 
+                       OutputCollector<K, V> output, Reporter reporter) 
+       throws IOException {
+         // Use data from the cached archives/files here
+         // ...
+         // ...
+         output.collect(k, v);
+       }
+     }
