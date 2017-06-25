@@ -190,3 +190,8 @@ $ bin/hadoop fs -copyFromLocal mytgz.tgz /myapp/mytgz.tgz
          output.collect(k, v);
        }
      }
+------------------------------------------
+how to set replication factor --
+hadoop fs -setrep -w 3 /my/fact/filename;
+for all file:
+hadoop fs -setrep -w 3 -R /my/fact/;
