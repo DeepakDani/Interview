@@ -1,0 +1,10 @@
+There are several ways to interact with Spark SQL including SQL and the Dataset API.
+****Hive table : 
+However, since Hive has a large number of dependencies, these dependencies are not included in the default Spark distribution. If Hive dependencies can be found on the classpath, Spark will load them automatically. Note that these Hive dependencies must also be present on all of the worker nodes, as they will need access to the Hive serialization and deserialization libraries (SerDes) in order to access data stored in Hive.
+Spark session : The entry point to programming Spark with the Dataset and DataFrame API.
+Spark session :+1: A unified entry point for manipulating data with Spark. ... Beyond a time-bounded interaction, SparkSession provides a single point of entry to interact with underlying Spark functionality and allows programming Spark with DataFrame and Dataset APIs.
+---------------------------------------------------
+why sparksql ---Hive can not handle encrypted data.Because of in memory computation(memory) ,saprk is faster so sparksql is also faster.
+ 
+
+
