@@ -1,0 +1,50 @@
+hive : UDF(https://www.cloudera.com/documentation/enterprise/5-8-x/topics/cm_mc_hive_udf.html)
+http://www.bigdata-careers.com/?page_id=63
+
+http://bangalore.startups-list.com/startups/big_data%20analytics
+--> we can load multiple files into hive table .
+load data local inpath'/home/training/Desktop/RATNESH/rk' overwrite into table tez; 
+
+https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/
+https://acadgild.com/blog/apache-hive-file-formats/
+Sequence files are flat files consisting of binary key-value pairs. 
+
+Now to load data into this table is somewhat different from loading into the table created using TEXTFILE format. You need to insert the data from another table because this SEQUENCEFILE format is binary format. It compresses the data and then stores it into the table. If you want to load directly as in TEXTFILE format that is not possible because we cannot insert the compressed files into tables.
+
+SerializerDeserializer (SerDe) for sqeunce file format:
+---------------------------------------------------------
+There are two SerDe for SequenceFile as follows:
+
+TextSerializerDeserializer: This class can read and write data in plain text file format.
+BinarySerializerDeserializer: This class can read and write data in binary file format
+
+There are three SequenceFile Writers based on the SequenceFile.CompressionType used to compress key/value pairs:
+Writer : Uncompressed records.
+RecordCompressWriter : Record-compressed files, only compress values.
+BlockCompressWriter : Block-compressed files, both keys & values are collected in 'blocks' separately and compressed. The size of the 'block' is configurable.
+The actual compression algorithm used to compress key and/or values can be specified by using the appropriate CompressionCodec.
+Enabling Compression for SequenceFile Tables-----
+hive> SET hive.exec.compress.output=true;
+hive> SET mapred.max.split.size=256000000;
+hive> SET mapred.output.compression.type=BLOCK;
+hive> SET mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
+hive> insert overwrite table new_table select * from old_table;
+for partiiton table-
+hive> create table new_table (your_cols) partitioned by (partition_cols) stored as new_format;
+hive> SET hive.exec.dynamic.partition.mode=nonstrict;
+hive> SET hive.exec.dynamic.partition=true;
+hive> insert overwrite table new_table partition(comma_separated_partition_cols) select * from old_table;
+
+To complete a similar process for a table that includes partitions, you would specify settings similar to the following:
+
+hive> CREATE TABLE tbl_seq (int_col INT, string_col STRING) PARTITIONED BY (year INT) STORED AS SEQUENCEFILE;
+hive> SET hive.exec.compress.output=true;
+hive> SET mapred.max.split.size=256000000;
+hive> SET mapred.output.compression.type=BLOCK;
+hive> SET mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
+hive> SET hive.exec.dynamic.partition.mode=nonstrict;
+hive> SET hive.exec.dynamic.partition=true;
+hive> INSERT OVERWRITE TABLE tbl_seq PARTITION(year) SELECT * FROM tbl;
+
+
+
