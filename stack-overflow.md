@@ -383,4 +383,9 @@ o/p hive.execution.engine=mr
 set hive.execution.engine=tez;
 --------------------------------------------------------------------------------------------------------
 http://www.evoketechnologies.com/blog/hadoop-counters-mapreduce-api-example/
+----------------------------------------------------------------------------------------------
+How do I read Snappy compressed files on HDFS without using Hadoop?
+ans:hadoop fs -text filename
+
+
 
