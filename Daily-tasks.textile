@@ -45,6 +45,21 @@ hive> SET mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCo
 hive> SET hive.exec.dynamic.partition.mode=nonstrict;
 hive> SET hive.exec.dynamic.partition=true;
 hive> INSERT OVERWRITE TABLE tbl_seq PARTITION(year) SELECT * FROM tbl;
+-----------------------------------------------------------------------------------------------------------
+RC FIle format : 
+org.apache.hadoop.hive.ql.io.RCFileInputFormat
+org.apache.hadoop.hive.ql.io.RCFileOutputFormat
+ and 4. The term "index" is rather inappropriate. Basically it's just min/max information persisted in the stripe footer at write time, then used at read time for skipping all stripes that are clearly not meeting the WHERE requirements, drastically reducing I/O in some cases (a trick that has become popular in columns stores e.g. InfoBright on MySQL, but also in Oracle Exadata appliances [dubbed "smart scan" by Oracle marketing])
+-------------------------------------------------------------------------------------------------
+diffence btw orc and rc file format--
+ORC offers a number of features not available in RC files:
+* Better encoding of data.  Integer values are run length encoded.  Strings and dates are stored in a dictionary (and the resulting pointers then run length encoded).
+* Internal indexes and statistics on the data.  This allows for more efficient reading of the data as well as skipping of sections of the data not relevant to a given query.  These indexes can also be used by the Hive optimizer to help plan query execution.
+* Predicate push down for some predicates.  For example, in the query "select * from user where state = 'ca'", ORC could look at a collection of rows and use the indexes to see that no rows in that group have that value, and thus skip the group altogether.
+* Tight integration with Hive's vectorized execution, which produces much faster processing of rows
+* Support for new ACID features in Hive (transactional insert, update, and delete).
+* It has a much faster read time than RCFile and compresses much more efficiently.
 
+Whether ORC is the best format for what you're doing depends on the data you're storing and how you are querying it.  If you are storing data where you know the schema and you are doing analytic type queries it's the best choice (in fairness, some would dispute this and choose Parquet, though much of what I said above about ORC vs RC applies to Parquet as well).  If you are doing queries that select the whole row each time columnar formats like ORC won't be your friend.  Also, if you are storing self structured data such as JSON or Avro you may find text or Avro storage to be a better format.
 
 
