@@ -402,9 +402,9 @@ For example, consider sample_data table with columns name, id and salary. You wa
 
 Following is first query which returns empty set.
 
-SqlManager: Executing SQL statement: select * from sample_data where  (1 = 0)  AND salary > 1000
-Then next query is to get min and max of range.
-INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(salary), MAX(salary) FROM (select * from sample_data where  (1 = 1)  AND salary > 1000) AS t1;
+_SqlManager: Executing SQL statement: select * from sample_data where  (1 = 0)  AND salary > 1000_
+_Then next query is to get min and max of range._
+_INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(salary), MAX(salary) FROM (select * from sample_data where  (1 = 1)  AND salary > 1000) AS t1;_
 -------------------------------------------------------------------------------------------------------
 
 
