@@ -386,6 +386,26 @@ http://www.evoketechnologies.com/blog/hadoop-counters-mapreduce-api-example/
 ----------------------------------------------------------------------------------------------
 How do I read Snappy compressed files on HDFS without using Hadoop?
 ans:hadoop fs -text filename
+------------------------------------------------------------------------------------------------------
+qoop Import - Query must contain '$CONDITIONS' in where clause
+
+error :Query [select * from reason where id>20] must contain '$CONDITIONS' in WHERE clause.
+Sqoop requires to access metadata of table for example column type information. Placeholder $CONDITIONS is by default set to '1 = 0' to ensure that sqoop receives only type information. So, after executing sqoop command you will see first query that gets fired is with default $CONDITIONS. Later on, it is substituted by different values defining different ranges based on number of mappers (-m) or --split-by column or --boundary-query so that entire data set can be divided into different data slices or chunks and chunks can be imported in parallel with as much as concurrency available. Sqoop will automatically substitute this placeholder with the generated conditions specifying which slice of data should be transferred by each individual task.
+For example, consider sample_data table with columns name, id and salary. You want to fetch records with salary > 1k.
+
+ sqoop import \ 
+    --connect "jdbc:mysql://quickstart.cloudera:3306/retail_db" \
+    --username retail_dba --password cloudera \
+    --query 'select * from sample_data where $CONDITIONS AND salary > 1000' \
+    --split-by salary \
+    --target-dir hdfs://quickstart.cloudera/user/cloudera/sqoop_new
+
+Following is first query which returns empty set.
+
+SqlManager: Executing SQL statement: select * from sample_data where  (1 = 0)  AND salary > 1000
+Then next query is to get min and max of range.
+INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(salary), MAX(salary) FROM (select * from sample_data where  (1 = 1)  AND salary > 1000) AS t1;
+-------------------------------------------------------------------------------------------------------
 
 
 
