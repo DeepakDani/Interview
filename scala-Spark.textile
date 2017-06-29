@@ -1,0 +1,5 @@
+what is sqlcontext.sql ?
+sql. SQLContext(sc) // this is used to implicitly convert an RDD to a DataFrame. ... SQLContext sqlContext = new org.apache.spark.sql.SQLContext(sc); The entry point into all relational functionality in Spark is the SQLContext class, or one of its decedents.
+----------------------------------------------------------------------
+https://dzone.com/articles/best-spark-sql-example-in-10-steps
+-----------------------------------------------------------------------
