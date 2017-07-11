@@ -3,3 +3,18 @@ sql. SQLContext(sc) // this is used to implicitly convert an RDD to a DataFrame.
 ----------------------------------------------------------------------
 https://dzone.com/articles/best-spark-sql-example-in-10-steps
 -----------------------------------------------------------------------
+RDD is an immutable distributed collection of data, partitioned across nodes in the cluster that can be operated in parallel with a low-level API that offers transformations and actions.
+limitations of RDD -
+1) No input optimization engine---
+There is no provision in RDD for automatic optimization.
+2 )there is no Static typing and run-time type safety in RDD. It does not allow us to check error at the runtime.
+
+3)Degrade when not enough memory
+The RDD degrades when there is not enough memory to store RDD in-memory or on disk. There comes storage issue when there is a lack of memory to store RDD. The partitions that overflow from RAM can be stored on disk and will provide the same level of performance. By increasing the size of RAM and disk it is possible to overcome this issue.
+
+4) Handling structured data
+RDD does not provide schema view of data. It has no provision for handling structured data.
+
+Dataset and DataFrame provide the Schema view of data. It is a distributed collection of data organized into named columns.
+
+
