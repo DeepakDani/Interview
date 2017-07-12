@@ -16,5 +16,15 @@ The RDD degrades when there is not enough memory to store RDD in-memory or on di
 RDD does not provide schema view of data. It has no provision for handling structured data.
 
 Dataset and DataFrame provide the Schema view of data. It is a distributed collection of data organized into named columns.
+----------------------------------------------------------------------------------------------
+Compare Spark vs Hadoop MapReduce
+Criteria  Hadoop MapReduce/Apache Spark
+Disk usage  MapReduce is disk oriented.//Spark caches data in-memory and ensures low latency.
+Processing Only batch processing is supported//Supports real-time processing through spark streaming.
+Installation  is bound to hadoop. //Is not bound to Hadoop.
+
+ 
+
+
 
 
