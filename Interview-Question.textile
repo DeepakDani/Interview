@@ -209,4 +209,17 @@ ALTER TABLE page_view ADD PARTITION (dt='2008-08-08', country='us') location '/p
 ALTER TABLE table_name PARTITION partition_spec RENAME TO PARTITION partition_spec;
 ALTER TABLE table_name_2 EXCHANGE PARTITION (partition_spec, partition_spec2, ...) WITH TABLE table_name_1;
 ALTER TABLE table_name DROP [IF EXISTS] PARTITION partition_spec IGNORE PROTECTION;
+------------------------------------------------------------------------------------------------
+Can Indexes be created in hive?
+
+
+CREATE INDEX table01_index ON TABLE table01 (column2) AS 'COMPACT';
+SHOW INDEX ON table01;
+DROP INDEX table01_index ON table01;
+------------------------------------------------------------------------------------
+How to change number of mappers
+
+Tuning the number of mappers and reducers used by your Hive request; this could be done by tuning the input size for each mapper mapreduce.input.fileinputformat.split.maxsize, and the input size for each reducer: hive.exec.reducers.bytes.per.reducer
+
+
 
