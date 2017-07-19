@@ -220,6 +220,31 @@ DROP INDEX table01_index ON table01;
 How to change number of mappers
 
 Tuning the number of mappers and reducers used by your Hive request; this could be done by tuning the input size for each mapper mapreduce.input.fileinputformat.split.maxsize, and the input size for each reducer: hive.exec.reducers.bytes.per.reducer
+------------------------------------------------------------------------------------------------------------------------
+Informatica BDE Hive dynamic Partitions
+--------------------------------------------------------------------------------------------------------------------------
+in incremental import we specify the last value ..so how do we know what is the last value..we need to go to hdfs/hive and see what was the last value imported...is there any other way﻿
+
+we can create a job using below cmd
+sqoop job \
+--create jobname1 \
+-- \
+import \
+--connect jdbc:mysql://mysql.example.com/sqoop \
+--username sqoop \
+--password sqoop \
+--table visits \
+--incremental append \
+--check-column id \
+--last-value 0
+
+Once you have created this job with name jobname1. You can run this job by command: sqoop job --exec jobname1
+
+to see the current parameter for this job run cmd: sqoop job --show jobname1 it will print all the details on console.
+
+You can see all the sqoop jobs that are already created by command: sqoop job --list.﻿
+yes got it so in the job we specify last value as 0 and sqoop will automatically get the last value from the metastore..thanks﻿
+-------------------------------------------------------------------------------------------------------------------------
 
 
 
