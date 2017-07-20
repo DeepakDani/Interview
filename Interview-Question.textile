@@ -249,4 +249,11 @@ http://dwbitechguru.blogspot.in/2015/08/difference-between-native-and-hive-mode.
 http://dwbitechguru.blogspot.in/2015/08/what-is-informatica-big-data-edition.html
 http://dwbitechguru.blogspot.in/2015/10/limitation-of-hive-mode-in-informatica.html
 
+This mode is not stateful i.e., you cannot keep track of dataa in the previous records using stateful variables. Your transformations like sorters, sequence generators wont work fully or properly.
+
+Your update strategy transformation will not work in hive mode just because hive does not allow updates. You can only insert records to Hive database. 
+
+In this mode the data gets read from source to temporary hive tables , transformed , and the target also gets loaded to temp hive tables before being inserted to final target which can be RDBMS database like oracle or Hive database. Hence the limition of hive also follows on to Hive mode in Informatica BDE.
+ 
+
 
