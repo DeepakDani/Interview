@@ -245,6 +245,8 @@ to see the current parameter for this job run cmd: sqoop job --show jobname1 it 
 You can see all the sqoop jobs that are already created by command: sqoop job --list.﻿
 yes got it so in the job we specify last value as 0 and sqoop will automatically get the last value from the metastore..thanks﻿
 -------------------------------------------------------------------------------------------------------------------------
-
+http://dwbitechguru.blogspot.in/2015/08/difference-between-native-and-hive-mode.html
+http://dwbitechguru.blogspot.in/2015/08/what-is-informatica-big-data-edition.html
+http://dwbitechguru.blogspot.in/2015/10/limitation-of-hive-mode-in-informatica.html
 
 
