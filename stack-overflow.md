@@ -404,8 +404,54 @@ Following is first query which returns empty set.
 
 _SqlManager: Executing SQL statement: select * from sample_data where  (1 = 0)  AND salary > 1000_
 _Then next query is to get min and max of range._
-_INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(salary), MAX(salary) FROM (select * from sample_data where  (1 = 1)  AND salary > 1000) AS t1;_
+_INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(salary), MAX(salary) FROM (select * from sample_data where  (1 = 1)  AND salary > 1000) AS t1;
 -------------------------------------------------------------------------------------------------------
+https://community.cloudera.com/t5/Data-Ingestion-Integration/Sqoop-import-exception-java-lang-NoClassDefFoundError-org-json/td-p/50758
+--------------------------------------------------------------------------------------------------------
+When using --incremental lastmodified option in sqoop command line "the second job will take both the old and new data and will merge them together into the final output, preserving only the last updated value for each row."
+However, when I try to run incremental lastmodified twice, the second time I get "FileAlreadyExistsException: Output directory already exists".
+The incremental lastmodified should read from this directory to get the data from the last run and should not throw an exception.
+still open
+--------------------------------------------------------------------------------
 
+Hi,
+I have this very weird issue, using sqoop to pulling data from oracle to hdfs/hive, i have three jobs running, total records is 312,163,901, but it stops at 312,160,000, the jobs show as running, but it hangs and nohting in the log and no update.
+A different table works fine.
+To me somehow the last 3901 got stuck, can someone help or give some hints?
+ans : 
 
-
+This is due to java heap space issue. 
+ 
+Pls try the below steps
+1. Check the current mapreduce.map.memory.mb and mapreduce.reduce.memory.mb (there are different ways to check - you can use either Cloudera manager -> Yarn -> configuration (or) from hive/beeline CLI (or) mapred-site.xml or yarn-site.xml )
+2. Increase (1 or 2 GB) java heap space temporarly,  i've already shared the details in the below link.
+3. Try the sqoop now, if the issue fixed then work with your admin and increase it permanently 
+ 
+----------------------------------------------------------------------------------------------
+impala can not properly handle .csv format. We have to use hive instead of 
+--------------------------------------------------------------------------------------------------
+I have a .txt file which is zipped in .gz format.
+I want to load the data from .txt file to hive table.
+ 
+The .txt file is around 432Gb, which i cant upload.
+But after zip it is now 26Gb, I can upload to hue.
+-----------------------------------------------------------------------------
+When i was trying to see the data under my table, it is throwing Analysis exception.I tried changing the ip address with  hostname as suggetsed but it did not work. 
+When i tried to open the tables and see the data in metastor manager in that also it is shwing error.
+ans : its resolved using hostname in the query. 
+------------------------------------------------------------------------------
+All,
+Working on importing data from DB2 using sqoop import, it worked fine for the most part except one table, which seemed to have some special characters ( control-M = ^M ) in contents, hence while sqooping, these characters are treated as newline and hence everything after it will be on the next line in the imported files, which will affect all the records after one bad record.
+I am unable to guess how to fix the imports? is there any easy way?
+ans :
+If your business allows to replace Ctrl+M with something else then I would suggest two steps
+ 
+1. Understand the regexp_replace function
+ex: regexp_replace(col2,  '<the char that you want to replce>', '')
+ 
+2. Use --query option instead of --table option in sqoop
+ 
+So you have to use the following method to replace Ctrl+M with something else in your sqoop script
+--query "select col1, regexp_replace(col2,  '<the char that you want to replce>', '') from db.table"
+----------------------------------------------------------------------------------
+ 
