@@ -22,6 +22,21 @@ Criteria  Hadoop MapReduce/Apache Spark
 Disk usage  MapReduce is disk oriented.//Spark caches data in-memory and ensures low latency.
 Processing Only batch processing is supported//Supports real-time processing through spark streaming.
 Installation  is bound to hadoop. //Is not bound to Hadoop.
+-----------------------------------------------------------------------------------------------------------
+how many modes are there for spark execution??
+1.local
+2.standalone
+3.yarn(default)
+4.mesos
+syntax: pyspark --master local
+
+SparkContext.wholeTextFiles lets you read a directory containing multiple small text files, and returns each of them as (filename, content) pairs. This is in contrast with textFile, which would return one record per line in each file.
+
+RDD.saveAsPickleFile and SparkContext.pickleFile support saving an RDD in a simple format consisting of pickled Python objects. Batching is used on pickle serialization, with default batch size 10.
+
+RDDs support two types of operations: transformations, which create a new dataset from an existing one, and actions, which return a value to the driver program after running a computation on the dataset.
+
+
 
  
 
