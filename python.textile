@@ -1,0 +1,13 @@
+Python code 
+------------
+1.Python: Get a string made of the first 2 and the last 2 chars from a given a string
+def sum_of_two_no(str):
+	if len(str) > 2:
+		str1 = str[:2]+str[-2:]
+	else:
+		str1 ='emply string'
+	return str1
+
+>>> sum_of_two_no('srivastava')
+'srva'
+----------------------------------------------------------------------------------------
