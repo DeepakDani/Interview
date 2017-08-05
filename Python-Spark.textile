@@ -69,6 +69,19 @@ difference btw reduceByKey and groupByKey
 https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html
 Notice how pairs on the same machine with the same key are combined (by using the lamdba function passed into reduceByKey) before the data is shuffled. Then the lamdba function is called again to reduce all the values from each partition to produce one final result.
 ---------------------------------------------------- 
+word count program --
+ratnesh1 = sc.teextFile(" ")
+ratnesh1.map(lambda x: (x[0],1)).reduceBYKey(lambda x,y: x + y).collect()
+---------------------------------------------------------
+joining two datasets--
+ordersRDD = sc.textFile(" ")
+orderMapRdd = ordersRDD.map(lambda o : (int(o.split(",")[0]),o.split(",")[1])) /// for two record from file
+//////orderMapRdd = ordersRDD.map(lambda o : (int(o.split(",")[0]),o)) ///  for all records 
+for i in orderMapRdd.take(5):
+   print(i)
+
+
+
 
 
 
