@@ -77,8 +77,9 @@ joining two datasets--
 ordersRDD = sc.textFile(" ")
 orderMapRdd = ordersRDD.map(lambda o : (int(o.split(",")[0]),o.split(",")[1])) /// for two record from file
 //////orderMapRdd = ordersRDD.map(lambda o : (int(o.split(",")[0]),o)) ///  for all records 
-for i in orderMapRdd.take(5):
-   print(i)
+orderjoinitem = orderMapRdd.join(ordersRDD)
+joindata = orderjoinitem.map(lambda t:t[1][0].split(",")[1],float(t[1][1].split(",")[4])))
+
 
 
 
