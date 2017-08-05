@@ -59,8 +59,16 @@ sqlContext.sql("select * from dson")
 for i in sqlContext.sql("select * from dson") :
   print(i)
 ------------------------------------------------
-word count programm in pyspark
+#calculate aggregate statistics
+orderRdd = sc.textFile("")
+orderMap = orderRdd.map(lambda x : split(",")[1],1))
+ordebystatus = orderMap.groupByKey(lambda x,y : x+y)
+orderBystatus = orderMap.reduceByKey(lambda x,y : x+y)
 
+difference btw reduceByKey and groupByKey
+https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html
+Notice how pairs on the same machine with the same key are combined (by using the lamdba function passed into reduceByKey) before the data is shuffled. Then the lamdba function is called again to reduce all the values from each partition to produce one final result.
+---------------------------------------------------- 
 
 
 
