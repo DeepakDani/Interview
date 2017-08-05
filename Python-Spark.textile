@@ -58,6 +58,9 @@ departmewtnjson.registerTempTable("jsontable")
 sqlContext.sql("select * from dson")
 for i in sqlContext.sql("select * from dson") :
   print(i)
+------------------------------------------------
+word count programm in pyspark
+
 
 
 
