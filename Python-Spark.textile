@@ -79,6 +79,24 @@ orderMapRdd = ordersRDD.map(lambda o : (int(o.split(",")[0]),o.split(",")[1])) /
 //////orderMapRdd = ordersRDD.map(lambda o : (int(o.split(",")[0]),o)) ///  for all records 
 orderjoinitem = orderMapRdd.join(ordersRDD)
 joindata = orderjoinitem.map(lambda t:t[1][0].split(",")[1],float(t[1][1].split(",")[4])))/// for getting special records
+ordeperday = joindata.map(lambda t: (t[1][1].split(",")[1] + "," +str[t[0]))).distinct()  //distinct for unique key,
+
+By Default HiveContext/sqlContext using 200 tasks manager
+but we can set 
+from pyspark.sql import HiveContext
+sqlContext = HiveContext(sc)
+sqlContext.sql("set spark.sql.shuffle.partitions=10")
+--------------------------------------------------------------
+# using spark native sql
+from pyspark.sql import SQLContext, Row
+sqlContext = SQLConext(sc)
+sqlContext.sql(set spark.sql.shuffle.partitions=10");
+
+orderrdd = sq.textFile("")
+orderMap = orderrdd.map(lambda x : x.split(",")).map(lambda x : Row(id=x[0],first_name= x[1],gender = x[2]))
+orderschema = sqlContext.inferSchema(orders)
+orderSchema.registerTempTable("orders")
+
 
 
 
