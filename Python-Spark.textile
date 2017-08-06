@@ -96,7 +96,10 @@ orderrdd = sq.textFile("")
 orderMap = orderrdd.map(lambda x : x.split(",")).map(lambda x : Row(id=x[0],first_name= x[1],gender = x[2]))
 orderschema = sqlContext.inferSchema(orders)
 orderSchema.registerTempTable("orders")
+Spark supports two types of shared variables: broadcast variables, which can be used to cache a value in memory on all nodes, and accumulators, which are variables that are only “added” to, such as counters and sums.
 
+---------------------------------------------------------------------------------------------------------
+spark document importent points--
 
 
 
