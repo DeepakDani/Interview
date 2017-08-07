@@ -100,7 +100,18 @@ Spark supports two types of shared variables: broadcast variables, which can be 
 
 ---------------------------------------------------------------------------------------------------------
 spark document importent points--
+The first thing a Spark program must do is to create a SparkContext object, which tells Spark how to access a cluster. To create a SparkContext you first need to build a SparkConf object that contains information about your application.
 
+conf = SparkConf().setAppName(appName).setMaster(master)
+sc = SparkContext(conf=conf)
+
+Apart from text files, Spark’s Python API also supports several other data formats:
+
+SparkContext.wholeTextFiles lets you read a directory containing multiple small text files, and returns each of them as (filename, content) pairs. This is in contrast with textFile, which would return one record per line in each file.
+
+RDD.saveAsPickleFile and SparkContext.pickleFile support saving an RDD in a simple format consisting of pickled Python objects. Batching is used on pickle serialization, with default batch size 10.
+
+SequenceFile and Hadoop Input/Output Formats
 
 
 
