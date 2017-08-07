@@ -110,8 +110,12 @@ Apart from text files, Spark’s Python API also supports several other data for
 SparkContext.wholeTextFiles lets you read a directory containing multiple small text files, and returns each of them as (filename, content) pairs. This is in contrast with textFile, which would return one record per line in each file.
 
 RDD.saveAsPickleFile and SparkContext.pickleFile support saving an RDD in a simple format consisting of pickled Python objects. Batching is used on pickle serialization, with default batch size 10.
+----------------------------------------------------------------------------
+Passing Functions to Spark
+Spark’s API relies heavily on passing functions in the driver program to run on the cluster. There are three recommended ways to do this:
 
-SequenceFile and Hadoop Input/Output Formats
+Lambda expressions, for simple functions that can be written as an expression. (Lambdas do not support multi-statement functions or statements that do not return a value.)
+Local defs inside the function calling into Spark, for longer code.
 
 
 
