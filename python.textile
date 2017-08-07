@@ -11,3 +11,4 @@ def sum_of_two_no(str):
 >>> sum_of_two_no('srivastava')
 'srva'
 ----------------------------------------------------------------------------------------
+row_input used to convert anything to string
