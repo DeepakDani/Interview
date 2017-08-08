@@ -20,4 +20,11 @@ apples =['i','banana','banana','greps','ad']
 print table of any number using python with for and while loop
 
 number = int(input("enter number you want to print table")
+for i in range(1,10):
+  print i*number
+#with while loop
+i = 1
+while(i < 10):
+  print i*number
+  i+=1
 
