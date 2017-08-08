@@ -16,4 +16,8 @@ rign= row_input("enter name : ")
 ----------------------------------------------------------------
 List
 apples =['i','banana','banana','greps','ad']
+--------------------------------------------------------
+print table of any number using python with for and while loop
+
+number = int(input("enter number you want to print table")
 
