@@ -116,6 +116,9 @@ Spark’s API relies heavily on passing functions in the driver program to run o
 
 Lambda expressions, for simple functions that can be written as an expression. (Lambdas do not support multi-statement functions or statements that do not return a value.)
 Local defs inside the function calling into Spark, for longer code.
+------------------------------------------------------------------------------
+groupBy() & groupByKey() Example---- groupByKey() operates on Pair RDDs and is used to group all the values related to a given key. groupBy() can be used in both unpaired & paired RDDs. When used with unpaired data, the key for groupBy() is decided by the function literal passed to the method
+
 
 
 
