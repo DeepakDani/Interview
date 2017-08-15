@@ -1,0 +1,58 @@
+Global logic ::
+1. All oops concepts in java asking with program
+2. All basic concepts of Hadoop  
+
+KPIT technologies ::
+ write map reduce program for word count and then about null values in a column
+Interview Questions
+Write a program to add all elements in a file .
+
+Infosys ::
+-----------------------------------------------------------------------------------
+Write a mapreduce to find maximum dep salary
+Wordcount program and explanation in mapreduce .
+Few project related questions
+replication factor zookeeper etc  
+
+ Infy Interview Hadoop - hive and pig
+Word count program in hive
+Steps
+Security enabling in hive - how to get other users not opting for it.
+Pig - user ID and page I'd User ID and age
+Get the aged 18 to 25 for top 5 visited websites
+Interview Questions
+What is RDD (spark)
+What r the problem with In u place
+How do u use global sort in hive and partitioning logics
+Diff between bucketing and partitioning
+When will u use this..
+Syntax for bucking and partitioning  
+--------------------------------------------------------------
+DELL EMC::
+
+Java, SQL and simple Stat Questions
+Find Second Max value in a Column of a SQL Table ?
+Core Java Questions.  
+------------------------------------------------------------------
+
+Solix Technologies::
+currently on which project u r working. about project the questions on hadoop and java questions.
+write program on mapreduce.
+write program on spark
+write sqoop command.
+hdfs questions and hive questions.
+
+------------------------------------------------------------------------
+DataMetica::
+hadoop architecture
+Difference Between local variable and global variable? 
+whole big data was asked from me sqoop,pig,hive,java,hive architecture,joins ,input split s ,co group ,hive optimization,file formats , sequential vs orc,partition buckting , udfs and lot more .
+------------------------------------------------------------------------------------
+Tripod Technologies
+
+1.) Limitations of Hadoop
+2.) How do we do indexing in Hadoop
+3.) How to do performance tuning in hadoop
+4.) what are different types of joins in Hive
+5.) A hive program asking to find the no.of employees Dept wise.   
+
