@@ -138,8 +138,13 @@ map -- apply function to each element of RDD and provide result into single RDD.
 flatMapp-  apply function to each element of RDD and provide an RDD of interators returned.
 filter -- apply function to each element of RDD and return an rdd of element which passes to filter condition.
 distinct()- return rdd having distinct elements.
+union(), substract(), intersection() ,cartesian(),
 
 Actions in spark ::
-
 collect(), count(), take(), reduce(), foreach() 
+takeSample(), takeOrdered(), saveAsTextFile(), saveAsSequenceFile(),
+--------------------------------------------------------------------------------------
 
+Transformation for pair RDD ::
+ groupByKey() : 
+ 
