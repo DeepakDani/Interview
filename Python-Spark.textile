@@ -153,4 +153,21 @@ Difference b/w reduceByKey and groupByKey
 reduceByKey will aggregate y key before shuffling, and groupByKey will shuffle all the value key pairs as the diagrams show.  On large size data the difference is obvious.
 combineByKey can be used when you are combining elements but your return type differs from your input value type.
 aggregateByKey() is logically same as reduceByKey() but it lets you return result in different type. In another words, it lets you have a input as type x and aggregate result as type y. For example (1,2),(1,4) as input and (1,"six") as output
+--------------------------------------------------------------------------------------
+Databricks Spark Knowledge Base
+
+Avoid GroupByKey---- 
+https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html
+
+---------------------------------------------------------------------------------------
+Don't copy all elements of a large RDD to the driver ----
+
+https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/dont_call_collect_on_a_very_large_rdd.html
+
+---------------------------------------------------------------------------------------
+Gracefully Dealing with Bad Input Data---
+
+
+
+
 
