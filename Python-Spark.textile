@@ -165,7 +165,10 @@ Don't copy all elements of a large RDD to the driver ----
 https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/dont_call_collect_on_a_very_large_rdd.html
 
 ---------------------------------------------------------------------------------------
-Gracefully Dealing with Bad Input Data---
+Gracefully Dealing with Bad Input Data
+--------------------------------------------------------------------------------------------------------------------------
+                                  Understanding Spark’s SparkConf, SparkContext, SQLContext and HiveContext
+https://blogs.msdn.microsoft.com/bigdatasupport/2015/09/14/understanding-sparks-sparkconf-sparkcontext-sqlcontext-and-hivecontext/
 
 
 
