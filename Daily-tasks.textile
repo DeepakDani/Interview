@@ -61,5 +61,7 @@ ORC offers a number of features not available in RC files:
 * It has a much faster read time than RCFile and compresses much more efficiently.
 
 Whether ORC is the best format for what you're doing depends on the data you're storing and how you are querying it.  If you are storing data where you know the schema and you are doing analytic type queries it's the best choice (in fairness, some would dispute this and choose Parquet, though much of what I said above about ORC vs RC applies to Parquet as well).  If you are doing queries that select the whole row each time columnar formats like ORC won't be your friend.  Also, if you are storing self structured data such as JSON or Avro you may find text or Avro storage to be a better format.
+--------------------------------------------------------------------------------------------------------------------Spark Spark can resume data Load but hive cannt.
+Spark can handle encrypted data
 
 
