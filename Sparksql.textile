@@ -24,6 +24,39 @@ val df =spark.read.json("")
 df.show()
 after creeating dataframe, we will create temp View df.CreateOrReplaceTempView("employee")
 dataframe = spark.sql("select * from employee where age is between 19 to 20") 
+-------------------------------------------------------
+rdd
+employeedf = spark.createDataFrame(rdd,scema)
+result = spark.sql("")
+result.map(attributes => "Name: " +attributes(0).show())
+-----------------------------------------------------JSON Parquet File--------------
+ //write 
+employeeDF.write.parquet("employee.parquet")
+----------------------------------------------------Hive Tables- case class & Spark Session ----------------------
+//importing 'Row' class and spark session into spark shell
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.SparkSession
+//creating class 'Record' with attributes int and string
+case class Record (key= Int, value= String)
+// setting the location of 'warehouselocation' to spark session
+val warehouselocation = "spark-warehouse"
+// we now build a Sparksession 'spark' to demostrete Hive Example in spark sql
+val spark = SparkSession.builder().appName("").config.("spark.sql.warehouse.dir",warehouselocation).enablehivesupport().getorCreate()
+
+//importing implicit class and sql library into the shell
+import spark.implicits._
+import spark.sql
+
+val sqlDF =sql("")
+// creating dataset using dataframe(sqlDF)
+val stringDS = sqlDF.map{case Row(key: int, value: string) => s"key: $key, Value: $value"} 
+stringDS.show()
+
+
+
+
+ 
+
 
 
 
