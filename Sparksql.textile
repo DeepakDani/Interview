@@ -2,9 +2,28 @@ There are several ways to interact with Spark SQL including SQL and the Dataset 
 ****Hive table : 
 However, since Hive has a large number of dependencies, these dependencies are not included in the default Spark distribution. If Hive dependencies can be found on the classpath, Spark will load them automatically. Note that these Hive dependencies must also be present on all of the worker nodes, as they will need access to the Hive serialization and deserialization libraries (SerDes) in order to access data stored in Hive.
 Spark session : The entry point to programming Spark with the Dataset and DataFrame API.
-Spark session :+1: A unified entry point for manipulating data with Spark. ... Beyond a time-bounded interaction, SparkSession provides a single point of entry to interact with underlying Spark functionality and allows programming Spark with DataFrame and Dataset APIs.
----------------------------------------------------
+Spark session : A unified entry point for manipulating data with Spark. ... Beyond a time-bounded interaction, SparkSession provides a single point of entry to interact with underlying Spark functionality and allows programming Spark with DataFrame and Dataset APIs.
+---------------------------------------------------------------------------------------------------------------------------
 why sparksql ---Hive can not handle encrypted data.Because of in memory computation(memory) ,saprk is faster so sparksql is also faster.
- 
+spark sql can not handle unstructured data. 
+
+-------------------------------------------------- UDF ---------------------------------------------------------
+val dataset = Seq((0,"Hello"),(1,"world")).toDF("id","text"))
+val upper :(function to convert string into Uppercase)
+import org.apache.spark.sql.functions.udf
+val upperUDF = udf(upper)
+dataset.withColumn("upper",upperUDF("text")).show
+------------------------------------------------------Starting Up Spark Shell - Spark session----------------
+import org.apache.spark.sql.SparkSession
+val spark = SparkSession.builder().appName("Spark sql basic").config("spark.some.config.option","some-value").getorCreate()
+//importing implicit class into our 'spark' session
+import spark.implicits._
+
+//create dataframe
+val df =spark.read.json("")
+df.show()
+after creeating dataframe, we will create temp View df.CreateOrReplaceTempView("employee")
+dataframe = spark.sql("select * from employee where age is between 19 to 20") 
+
 
 
