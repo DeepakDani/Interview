@@ -45,4 +45,8 @@ print(MyClass.func)
 # Output: 'This is my second class'
 print(MyClass.__doc__)// print default string of class
 -------------------------------------------------
-
+// selecting sub seqeunce from string
+abc = ("computer")
+print (abc[0:5]) // comp ---[sarting position : ending Position + 1]
+print(abc[1:])   //omputer
+print (abc[:-2])  // comput
