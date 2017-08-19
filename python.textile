@@ -50,3 +50,10 @@ abc = ("computer")
 print (abc[0:5]) // comp ---[sarting position : ending Position + 1]
 print(abc[1:])   //omputer
 print (abc[:-2])  // comput
+-------------------------------------------------------
+# find the position of charector
+abc="i am ratnesh working in cognizant"
+y = abc.find("t") //7
+print (abc[y:]) // tnesh working in cognizant
+y = abc.find("in")
+print(abc[y:]) // it will print first cahrector of given string if result were not found then result -1
