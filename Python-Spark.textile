@@ -212,5 +212,10 @@ __all__ = [
     'DataFrameNaFunctions', 'DataFrameStatFunctions', 'Window', 'WindowSpec',
     'DataFrameReader', 'DataFrameWriter'
 ]
-
-
+------------------------------------------------------------------------------------------------------
+Pair RDD : Spark provides special type of operations on RDDs containing key or value pairs.
+ 
+---------------------------------------------------- RDDs --------------------------------------------------------------- : aggregate() 
+       aggregateByKey()
+cogroup [Pair]
+groupWith [Pair]
