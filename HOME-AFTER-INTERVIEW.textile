@@ -1,3 +1,5 @@
-project convert to spark python.
-learn python !!
-
+1.brodcoast variable in spark.
+2 reduceByKey,groupByKey .....
+3.files format .
+4.internal processing of spark.
+5. mapsidejoin, reducesidejoin
