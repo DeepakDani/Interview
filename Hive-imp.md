@@ -23,3 +23,7 @@ $HIVE_HOME/bin/hive -i /home/my/hive-init.sql
 http://hadooptutorial.info/merging-small-files-into-avro-file/
 http://hadooptutorial.info/merging-small-files-into-sequencefile/
 https://community.hortonworks.com/questions/25190/load-multiple-json-file-to-hive-table.html
+
+
+understand that the fsimage is loaded into the memory on startup and any further transactions are added to the edit log rather than to the fsimage for performance reasons.
+The fsimage in memory gets refreshed when the namenode is restarted. For efficiency, secondary name node periodically does a checkpoint to update the fsimage so that the namenode recovery is faster. All these are fine
