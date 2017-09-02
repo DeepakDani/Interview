@@ -37,6 +37,7 @@ write sql query to update if 3 come then 2 and 4 then current_timestamp ---  nee
 20. about backup of namenode and fsimage and edit logs ?
 21. secondry name node 
 22. what is size of clousters and why . how much data you have how much you are goiong to store ?
-23. 
+23. if number of reducer are 2 and if one then which program is faster ??
+
 
  
