@@ -1,4 +1,4 @@
-### ### # 1. # Sqoop error while importing to hdfs
+# ### ### # 1. # Sqoop error while importing to hdfs
 ### ### # Q1:13/12/04 02:05:39 ERROR 
 ### ### # security.UserGroupInformation:PriviledgedActionException  as:hadoop      
 ### ### # (auth:SIMPLE) 
