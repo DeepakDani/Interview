@@ -455,3 +455,9 @@ So you have to use the following method to replace Ctrl+M with something else in
 --query "select col1, regexp_replace(col2,  '<the char that you want to replce>', '') from db.table"
 ----------------------------------------------------------------------------------
  
+How many number of MAPPER and Reducer will run when when select count(*) from table ??
+
+Number of Mappers depends on the number of input splits calculated by the job client.
+If you write a simple query like select Count(*) from company only one Map reduce Program will be executed.
+So, in short mappers are decided by HDFS and reducers can be customized.
+---------------------------------------------------------------------------------------
