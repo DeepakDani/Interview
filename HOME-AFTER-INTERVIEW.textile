@@ -3,3 +3,35 @@
 3.files format .
 4.internal processing of spark.
 5. mapsidejoin, reducesidejoin
+----------------------------------------------------
+
+Deloitte interview
+1. differnce btw managed and external 
+2. if we will give default local of managed table at time of creating external table ?? is it possible
+3. oozie and autosys
+4. mapreduce code and UDF
+5. insert and update logic in hive  with question 
+for example 
+ A
+ 1
+ 2
+ 3
+ 4
+
+write sql query to update if 3 come then 2 and 4 then current_timestamp ---  need multiple way
+
+6. if you want to execute query in hive using spark engine ?? is it possible
+7. how many engines are there to execute hive queries ??
+8. full explanation of project
+9. select count(*) from table  --- how many number of mapper and reduces are working here
+10. spark sql
+11. load data into table and retrieve data from there
+12. file formats orc and parquet which is better
+13. where to use which format ??
+14. joiner transformation ?
+15. row_numer() over(partiitoned by sorted by )
+16. versions 
+17. brief of project 
+
+
+ 
