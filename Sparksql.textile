@@ -51,7 +51,7 @@ val sqlDF =sql("")
 // creating dataset using dataframe(sqlDF)
 val stringDS = sqlDF.map{case Row(key: int, value: string) => s"key: $key, Value: $value"} 
 stringDS.show()
-
+-----------------------------------------------------------------------------------------------------------------------
 
 
 
