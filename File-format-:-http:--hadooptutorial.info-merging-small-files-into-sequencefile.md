@@ -18,6 +18,13 @@ There are three types of sequence files:
 • Uncompressed key/value records.
 • Record compressed key/value records – only ‘values’ are compressed here
 • Block compressed key/value records – both keys and values are collected in ‘blocks’ separately and compressed. The size of the ‘block’ is configurable.
+sequence file store data in binary format.
+set hive.exec.compress.output = true;
+set mapred.output.compression = true;
+set mapred.output.compression.codec= org.apache.hadoop.compress.snappyCodec ;
+
+
+
 
 
 RCFILE
@@ -55,6 +62,7 @@ there r three types of xml file available :
 mapred-site.xml
 core-site.xml
 hdfs-site.xml
-
+---------------------------------------------------------------------------------------------------
+sequence file ::
 
 
