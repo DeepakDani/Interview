@@ -70,5 +70,13 @@ As the NameNode is the single point of failure in HDFS, if NameNode fails entire
 FsImage is a snapshot of the HDFS file system metadata at a certain point of time and EditLog is a transaction log which contains records for every change that occurs to file system metadata. So, at any point of time, applying edits log records to FsImage (recently saved copy) will give the current status of FsImage, i.e. file system metadata.
 
 Whenever a NameNode is restarted, the latest status of FsImage is built by applying edits records on last saved copy of FsImage. Since, NameNode merges FsImage and EditLog files only at start up, the edits log file might get very large over time on a busy cluster. That means, if the EditLog is very large, NameNode restart process result in some considerable delay in the availability of file system. So, it is important keep the edits log as small as possible which is one of the main functions of Secondary NameNode.
----------------------------------------------------------------
 
+Secondary NameNode Functions:
+
+1.  Stores a copy of FsImage file and edits log. 
+
+2.  Periodically applies edits log records to FsImage file and refreshes the edits log. And sends this updated FsImage file to NameNode so that NameNode doesn’t need to re-apply the EditLog records during its start up process. Thus Secondary NameNode makes NameNode start up process fast.
+
+3.  If NameNode is failed, File System metadata can be recovered from the last saved FsImage on the Secondary NameNode but Secondary NameNode can’t take the primary NameNode’s functionality.
+
+4. Check pointing of File system metadata is performed. 
