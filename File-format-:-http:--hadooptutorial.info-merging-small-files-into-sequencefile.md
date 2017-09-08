@@ -63,6 +63,13 @@ mapred-site.xml
 core-site.xml
 hdfs-site.xml
 ---------------------------------------------------------------------------------------------------
-sequence file ::
+orc file format :: optimized row column format 
+diffenect formats for different columns according to the requirement
+------------------------------------------------------------------------------------------------
+summit :: avro, orc, sequence, textfile
 
-
+parquet : 
+Schema integrated with footer
+column major format with strips
+All the data pushed to leave of the tree
+integrated compression and indexes
