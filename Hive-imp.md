@@ -27,3 +27,18 @@ https://community.hortonworks.com/questions/25190/load-multiple-json-file-to-hiv
 
 understand that the fsimage is loaded into the memory on startup and any further transactions are added to the edit log rather than to the fsimage for performance reasons.
 The fsimage in memory gets refreshed when the namenode is restarted. For efficiency, secondary name node periodically does a checkpoint to update the fsimage so that the namenode recovery is faster. All these are fine
+----------------------------------------------------------------
+select e.empno, e.ename, e.deptno ,d.dname,d.location from emp e,dept d where e.deptno = d.deptno order by e.deptno;
+select empno,deptno,sal, FIRST_VALUE(sal IGNORE NULLS)over(partition by deptno)ratnesh from emp;
+
+7782	10	2450	2450
+7934	10	1300	2450
+7839	10	5000	2450
+7566	20	2975	2975
+7369	20	800	2975
+7788	20	3000	2975
+7876	20	1100	2975
+7902	20	3000	2975
+7844	30	1500	1500
+7654	30	1250	1500
+7521	30	1250	1500
