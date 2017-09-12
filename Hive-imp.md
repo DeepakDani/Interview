@@ -116,4 +116,6 @@ select empno , deptno, sal , dense_rank() over( partition by deptno  order by sa
 7698	30	2850	4
 -------------------------------------------------------------------------
 with ordered_query as (select empno,deptno,ename,sal,mgr,hiredate from emp) select empno from ordered_query;
+-----------------------------------------------------------------------------------------------
+
 
