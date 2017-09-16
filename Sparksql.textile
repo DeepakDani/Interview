@@ -52,11 +52,43 @@ val sqlDF =sql("")
 val stringDS = sqlDF.map{case Row(key: int, value: string) => s"key: $key, Value: $value"} 
 stringDS.show()
 -----------------------------------------------------------------------------------------------------------------------
+I've got this JSON file
 
+which has been obtained with Python json.dump method. Now, I want to read this file into a DataFrame in Spark, using pyspark. Following documentation, I'm doing this
+
+sc = SparkContext()
+
+sqlc = SQLContext(sc)
+
+df = sqlc.read.json('my_file.json')
+
+print df.show()
+The print statement spits out this though:
+
++---------------+
+|_corrupt_record|
++---------------+
+|              {|
+|       "a": 1, |
+|         "b": 2|
+|              }|
++---------------+
+Anyone knows what's going on and why it is not interpreting the file correctly?
 
 
  
+ans : {"a" :1 , "b": 2}
+      {"a" : 1, "b": 2}
+file should be  in this format
+-------------------------------------------------------------------------------------------------------------------------
+from pyspark.sql import SQLContext, Row
+sqlContext = SQLContext(sc)
+#load data from text file to dataframe though rdd
+rdd = sc.textFile('name1/khatak.csv')
+rdd1 = rdd.map(lambda x :x.split(","))
+people = rdd1.map(lambda x : Row(id = int(x[0]),first_name = x[1],ip_address = x[2],date = x[3]))
 
-
-
-
+schema = sqlContext.createDataFrame(people')
+schemaregisterTempTable('schema')
+tee= sqlContext.sql("select * from people where id in (1,2,3,4,5))
+-------------------------------------------------------------------------------------
