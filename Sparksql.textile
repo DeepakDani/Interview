@@ -91,4 +91,8 @@ people = rdd1.map(lambda x : Row(id = int(x[0]),first_name = x[1],ip_address = x
 schema = sqlContext.createDataFrame(people')
 schemaregisterTempTable('schema')
 tee= sqlContext.sql("select * from people where id in (1,2,3,4,5))
--------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+By default saveAsTable will create a “managed table”, meaning that the location of the data will be controlled by the metastore. Managed tables will also have their data deleted automatically when a table is dropped.
+---------------------------------------------------------------------------------------------
+ Parquet files are self-describing so the schema is preserved.
+------------------------------------------------------------------------
