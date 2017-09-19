@@ -57,3 +57,16 @@ y = abc.find("t") //7
 print (abc[y:]) // tnesh working in cognizant
 y = abc.find("in")
 print(abc[y:]) // it will print first cahrector of given string if result were not found then result -1
+-----------------------------------------------------
+for i in range(10):
+      print i
+0
+1
+2
+3
+.
+.
+
+for i in range(10):
+    print i,
+0 1 2 3 4 5 6 7 8 9 
