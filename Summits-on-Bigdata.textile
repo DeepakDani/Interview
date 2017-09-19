@@ -1,17 +1,17 @@
 https://www.youtube.com/watch?v=6BD-Vv-ViBw // Hive Bucketing in Apache Spark - Tejas Patil
 
 types of join ::
-Broadcaste hash join --
-shuffle hash join --
-sort merge join --
+Broadcaste hash join
+shuffle hash join
+sort merge join
 ----------------------------------------bucketing of table using spark--------------------------------------------- 
 lounch with spark 2.2
 1} using dataframe --df.write.bucketBy(numbuckets,"col1","col2" .....).sortBy("col1", "col2").saveAsTable("buckettable")
 2} using sql statement - create table buckettable("col1","col2"..) using parquet clustered by (col1) sorted by(col1) into n buckets;
 
-Check bucketing spec --
+Check bucketing spec::
 pyspark> sqlContext.sql("desc formatted bucktable").collect().foreach(println)
-bucket configuration ---
+bucket configuration ::
 SET spark.sql.sources.bucketing.enabled = true;
 
 
