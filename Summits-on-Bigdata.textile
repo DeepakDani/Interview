@@ -1,4 +1,5 @@
 https://www.youtube.com/watch?v=6BD-Vv-ViBw // Hive Bucketing in Apache Spark - Tejas Patil
+https://www.youtube.com/watch?v=fp53QhSfQcI // Optimizing Apache Spark SQL Joins: Spark Summit East talk by Vida Ha
 https://stackoverflow.com/questions/22141631/what-is-the-purpose-of-shuffling-and-sorting-phase-in-the-reducer-in-map-reduce
 
 types of join ::
@@ -18,9 +19,10 @@ SET spark.sql.sources.bucketing.enabled = true;
 differnce btw hive bucketing and spark bucketing ::
 hive bucket ::there will be one file for one bucket. means it follows map reduce concept.optimized write and write are costely.Each bucket is sorted globally.this make easy to optimize queries reading data.
 spark bucket:: there will be n number of file for one bucket , so it is not globallly sorted. each file is invidually sorted but "buckets" are not globally sorted.
-----------------------------------------SQL Planner improvement --------------------------------------
+SQL Planner improvement-----
 Suffle and sort is costly due to disk and network IO.
 Bucketing will pre -(shuffle and sort) the inputs.
 Expect at least 2-5x gains after bucketing input tables for joins.
 Spark bucketing is not compatible with hive bucketing.
-
+32k is max number of buckets. we cannt go beyond that.
+------------------------Optimizing Apache Spark SQL Joins---------------------------------------------------------------
