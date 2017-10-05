@@ -220,6 +220,6 @@ aggregateByKey()
 cogroup [Pair]  Multiple Pair RDDs can be combined using cogroup() ex .rdd.cogroup(rdd1)
 groupWith [Pair]
 countApproxDistinct
- mapPartitions --The method map converts each element of the source RDD into a single element of the result RDD by applying a function. mapPartitions converts each partition of the source RDD into multiple elements of the result (possibly none).---heavyweight initialization 
+ mapPartitions ----->The method map converts each element of the source RDD into a single element of the result RDD by applying a function. mapPartitions converts each partition of the source RDD into multiple elements of the result (possibly none).------heavyweight initialization 
 mapPartitionsWithSplit ---Similar to mapPartitions, but also provides func with an integer value representing the index of the split, so func must be of type (Int, Iterator[T]) => Iterator[U] when running on an RDD of type T.
 --------------------------------------------------------------------------------------------
