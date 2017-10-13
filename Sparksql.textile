@@ -117,3 +117,25 @@ squared_udf = udf(squared, LongType())
 df = sqlContext.table("test")
 display(df.select("id", squared_udf("id").alias("id_squared")))
 
+-----------------------------------------------------
+sqlContext.tableNames() // describes all table 
+
+Repartition vs. Coalesce
+Posted on August 11, 2015 by Bo Zhang
+Repartition and Coalesce are 2 RDD methods since long ago. However for DataFrame, repartition was introduced since Spark 1.3 and coalesce was introduced since Spark 1.4.
+
+Both of them are actually changing the number of partitions where the data stored (as RDD). According to either RDD document or DataFrame document, the repartition is actually shuffle the original partitions and repartition them, while coalesce will just combine original partitions to the new number of partitions. In that sense, coalesce will only reduce the number of partitions.
+
+Since shuffling could be very costly, if reduce the number of partitions is what you really want to do, please consider use coalesce. For example, as mentioned in an earlier post, you may need to reduce the number of partitions before join operation. In that case, coalesce is a better choice than repartition, although in the earlier post example, since the data itself is quite small, repartition does not cause too much delay.
+
+If you are using Spark 1.3, you can still take advantage of coalesce, although it has to be the RDD version. Here is the workaround for Spark 1.3,
+
+1
+2
+val rdd = df.rdd.coalesce(16)
+val resDF = df.sqlContext.createDataFrame(rdd, df.schema)
+which is equivalent to the following in Spark 1.4,
+
+1
+val resDF = df.coalesce(16)
+
