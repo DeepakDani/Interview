@@ -96,3 +96,24 @@ By default saveAsTable will create a “managed table”, meaning that the locat
 ---------------------------------------------------------------------------------------------
  Parquet files are self-describing so the schema is preserved.
 ------------------------------------------------------------------------
+/////Register the function as a UDF ////----
+def squared(s):
+  return s * s
+sqlContext.udf.register("squaredWithPython", squared)
+
+
+optionally, you can also explicitly set the return type of your UDF.
+from pyspark.sql.types import LongType
+def squared_typed(s):
+  return s * s
+sqlContext.udf.register("squaredWithPython", squared, LongType())
+
+////Call the UDF in Spark SQL
+sqlContext.range(1, 20).registerTempTable("test")
+
+///Use UDF with DataFrames
+from pyspark.sql.functions import udf
+squared_udf = udf(squared, LongType())
+df = sqlContext.table("test")
+display(df.select("id", squared_udf("id").alias("id_squared")))
+
