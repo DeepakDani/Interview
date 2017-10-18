@@ -39,5 +39,10 @@ write sql query to update if 3 come then 2 and 4 then current_timestamp ---  nee
 22. what is size of clousters and why . how much data you have how much you are goiong to store ?
 23. if number of reducer are 2 and if one then which program is faster ??
 
+-----------------------------------------------------------------------------------------------------------------
+1.Query to find Second Highest Salary of Employee?
+Answer:-
+Select distinct Salary from Employee e1 where 2=Select count(distinct Salary) from Employee e2 where e1.salary<=e2.salary;
+2.Query to find duplicate rows in table?
 
  
