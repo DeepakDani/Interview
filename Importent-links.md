@@ -16,5 +16,6 @@ http://apachesparkbook.blogspot.in/2015/12/cogroup-example.html
 http://spark.apache.org/docs/2.1.0/api/python/pyspark.html--// must read
 http://www.sanfoundry.com/1000-hadoop-questions-answers/
 https://docs.python.org/2/library/collections.html?_sm_au_=iSV6jsjsTTqZjtJs#collections.namedtuple  //must read
-
+https://github.com/vaquarkhan/vk-wiki-notes/wiki/Top-Apache-Spark-Interview-Questions-And-Answers /// interview questions
+https://github.com/XD-DENG/Spark-practice/// for practice
 
