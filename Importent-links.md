@@ -18,5 +18,5 @@ http://www.sanfoundry.com/1000-hadoop-questions-answers/
 https://docs.python.org/2/library/collections.html?_sm_au_=iSV6jsjsTTqZjtJs#collections.namedtuple  //must read
 https://github.com/vaquarkhan/vk-wiki-notes/wiki/Top-Apache-Spark-Interview-Questions-And-Answers /// interview questions
 https://github.com/XD-DENG/Spark-practice/// for practice
-https://github.com/XD-DENG/Spark-practice/blob/master/others/basic_operations.py
+https://github.com/XD-DENG/Spark-practice/blob/master/others/basic_operations.py  // basic operations
 
