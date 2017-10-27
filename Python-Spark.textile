@@ -222,4 +222,11 @@ groupWith [Pair]
 countApproxDistinct
  mapPartitions ----->The method map converts each element of the source RDD into a single element of the result RDD by applying a function. mapPartitions converts each partition of the source RDD into multiple elements of the result (possibly none).------heavyweight initialization 
 mapPartitionsWithSplit ----- >Similar to mapPartitions, but also provides func with an integer value representing the index of the split, so func must be of type (Int, Iterator[T]) => Iterator[U] when running on an RDD of type T.
---------------------------------------------------------------------------------------------
+----------------------------------------------------------------
+how do you drop rows from an RDD in PySpark? Particularly the first row, since that tends to contain column names in my datasets. From perusing the API, I can't seem to find an easy way to do this. Of course I could do this via Bash / HDFS, but I just want to know if this can be done from within PySpark.???????????//
+Ans ::
+   header = rdd.first()
+     rdd.filter(lambda line: line != header)
+---------------------------------------------------------------------------------------------
+How to find fue data from rdd and saveasTextFile()
+ans ::
