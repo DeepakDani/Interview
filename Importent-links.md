@@ -19,4 +19,4 @@ https://docs.python.org/2/library/collections.html?_sm_au_=iSV6jsjsTTqZjtJs#coll
 https://github.com/vaquarkhan/vk-wiki-notes/wiki/Top-Apache-Spark-Interview-Questions-And-Answers /// interview questions
 https://github.com/XD-DENG/Spark-practice/// for practice
 https://github.com/XD-DENG/Spark-practice/blob/master/others/basic_operations.py  // basic operations
-
+https://github.com/vaquarkhan/vk-wiki-notes/wiki/Problems-Spark-SQL-solves /// comulsary
