@@ -13,3 +13,12 @@ If <path> is a directory then the command recursively changes the replication fa
 1.The type Joinmap.Table1 must implement the inherited abstract method Mapper<LongWritable,Text,IntWritable,Text>.map(LongWritable, 
  Text, OutputCollector<IntWritable,Text>, Reporter)
 
+Caused by: java.lang.ClassCastException: cannot assign instance of scala.collection.immutable.List$SerializationProxy to field org.apache.spark.rdd.RDD.org$apache$spark$rdd$RDD$$dependencies_ of type scala.collection.Seq in instance of org.apache.spark.rdd.MapPartitionsRDD
+I get the error above when I use dataset.map(). Why?
+Ans  ::no
+Can I run this somehow: combPrdGrp3.repartition(10).saveAsTextFile("Combined") and save it as gzip files?
+ans ::
+combPrdGrp3.repartition(10).saveAsTextFile("Combined", classOf[GzipCodec])
+ 
+
+
