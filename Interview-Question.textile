@@ -275,4 +275,17 @@ b). start-yarn.sh, stop-yarn.sh : : to start/ stop Yarn daemons separately on al
 b)yarn-deamon.sh resourcemanager : To start a Yarn service on an individual machine manually
 
 start-dfs.sh, stop-dfs.sh and start-yarn.sh, stop-yarn.sh are preferred over start-all.sh & stop-all.
+---------------------------------------
+Type of table in Hive : 
+
+How can we optimize Hive tables....
+
+How can we optimize MapReduce job....
+
+What kind of data you will have ...
+
+What is the size of cluster ? 
+
+What is the size of data ? 
+CREATE TABLE IF NOT EXISTS dataset1 ( eid int, first_name String, last_name String, email String, gender String, ip_address String) row format delimited fields terminated BY ',' tblproperties("skip.header.line.count"="1");
 
