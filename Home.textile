@@ -2,7 +2,7 @@ Capgemini Hadoop Developer Interview Questions
 
 ----> What is speculative execution in Hadoop?
 ----> How big data problems are solved in retail sector?
-----> What is the largest amount of data that you have handled?
+----> What is the largest amount of data that you have handled?  128 GB data monthly sales
 ----> Amazon Hadoop Developer Interview Questions
 ----> 
 ----> What is the difference between TextInput format and KeyValue format in Hadoop?
