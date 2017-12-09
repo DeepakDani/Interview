@@ -254,6 +254,25 @@ This mode is not stateful i.e., you cannot keep track of dataa in the previous r
 Your update strategy transformation will not work in hive mode just because hive does not allow updates. You can only insert records to Hive database. 
 
 In this mode the data gets read from source to temporary hive tables , transformed , and the target also gets loaded to temp hive tables before being inserted to final target which can be RDBMS database like oracle or Hive database. Hence the limition of hive also follows on to Hive mode in Informatica BDE.
- 
+--------------------------------------------------------------------------------------------------------------------------
+ List the difference between Hadoop 1 and Hadoop 2.
 
+This is an important question and while answering this question, we have to mainly focus on two points i.e. Passive NameNode and YARN architecture.
+
+In Hadoop 1.x, “NameNode” is the single point of failure. In Hadoop 2.x, we have Active and Passive “NameNodes”. If the active “NameNode” fails, the passive “NameNode” takes charge. Because of this, high availability can be achieved in Hadoop 2.x.
+Also, in Hadoop 2.x, YARN provides a central resource manager. With YARN, you can now run multiple applications in Hadoop, all sharing a common resource. MRV2 is a particular type of distributed application that runs the MapReduce framework on top of YARN. Other tools can also perform data processing via YARN, which was a problem in Hadoop 1.x.
+-------------------------------------------------------------------------------------------------
+What are the different ways to restart NameNode in Hadoop?
+ans --: There are three ways to start the Daemons in Hadoop
+1.	start-all.sh & stop-all.sh : To start/stop all the deamons on all the nodes from Master machine all at once.
+
+2.	a). start-dfs.sh, stop-dfs.sh : to start/ stop HDFS daemons separately on all the nodes from Master machine
+
+b). start-yarn.sh, stop-yarn.sh : : to start/ stop Yarn daemons separately on all the nodes from Master machine
+
+3.	a)hadoop-daemon.sh namenode/datanode : To start idatanode/Namenode on an individual machine manually(e.g. this can be used when a new datanode is added and this datanode needs to be started on that particular machine)
+
+b)yarn-deamon.sh resourcemanager : To start a Yarn service on an individual machine manually
+
+start-dfs.sh, stop-dfs.sh and start-yarn.sh, stop-yarn.sh are preferred over start-all.sh & stop-all.
 
