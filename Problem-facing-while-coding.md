@@ -33,7 +33,8 @@ ALTER TABLE page_view ADD PARTITION (dt='2008-08-08', country='us') location '/p
 should be replaced with:
 ALTER TABLE page_view ADD PARTITION (dt='2008-08-08', country='us') location '/path/to/us/part080808';
 ALTER TABLE page_view ADD PARTITION (dt='2008-08-09', country='us') location '/path/to/us/part080809';
-
+ in sqoop ----
+https://www.quora.com/What-kind-of-issues-did-you-run-into-when-using-SQOOP
 
 
 
