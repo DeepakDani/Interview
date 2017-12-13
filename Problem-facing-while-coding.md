@@ -19,6 +19,22 @@ Ans  ::no
 Can I run this somehow: combPrdGrp3.repartition(10).saveAsTextFile("Combined") and save it as gzip files?
 ans ::
 combPrdGrp3.repartition(10).saveAsTextFile("Combined", classOf[GzipCodec])
- 
+ hive -------------------------------------------
+https://www.cloudera.com/documentation/cdh/5-0-x/CDH5-Release-Notes/cdh5rn_hive_ki.html
+1.invalidate metadata 
+2.compute stats
+3. you can nt load directly csv file to parquet/orc/rc format.
+4. https://github.com/prestodb/presto/issues/1848  /// skip.header.line.count is an issue.
+5. implement timestamp support in Parquet SerDe. // https://issues.apache.org/jira/browse/HIVE-6394 -- use unix_timestamp
+6. Hive creates an invalid table if you specify more than one partition with alter table.https://www.cloudera.com/documentation/cdh/5-0-x/CDH5-Release-Notes/cdh5rn_hive_ki.html
+ex.
+ALTER TABLE page_view ADD PARTITION (dt='2008-08-08', country='us') location '/path/to/us/part080808' PARTITION
+(dt='2008-08-09', country='us') location '/path/to/us/part080809';
+should be replaced with:
+ALTER TABLE page_view ADD PARTITION (dt='2008-08-08', country='us') location '/path/to/us/part080808';
+ALTER TABLE page_view ADD PARTITION (dt='2008-08-09', country='us') location '/path/to/us/part080809';
+
+
+
 
 
