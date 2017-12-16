@@ -44,5 +44,23 @@ write sql query to update if 3 come then 2 and 4 then current_timestamp ---  nee
 Answer:-
 Select distinct Salary from Employee e1 where 2=Select count(distinct Salary) from Employee e2 where e1.salary<=e2.salary;
 2.Query to find duplicate rows in table?
-
+---------------------------------------------------------------------------------------------------------
+Yes Bank :::
+1) diffrence between coalesce and repartition
+2) transformation and actiton
+4) dataframe to rdd
+5) dataframe to hive table
+6) how to execute query in dataframe
+7) how to save dataframe into hdfs
+8) reduceByKey and GroupByKey
+9) if we have some records in emp table and which contains your perchase data sach as if you parchased 10 stuff in a day. then this table will contain your 10 records like your id , name, stuff. now need to group by of all stuff with id. output should be like . 10 , Ratnesh, pen,pencil, book, dress,mobile, computer
+10) how to send 10 records from orcle to hdfs.
+11) why oracle to netezza beacuse both are rdbms.
+12) how to trannsfer data from orcle to hive in your project.
+13) if you have 100 clusters and how do you find which data is stored in which cluster and with nodes of block.
+14) boundry qeury 
+15) sqoop depely
+16) data frame deeply
+17) impala internal architechture
+18) 
  
