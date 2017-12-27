@@ -47,5 +47,8 @@ drop table  upd_emp;
 drop table  ins_emp;
 select * from emptwo;
 ---------------------------------------------------------------------------------------------------------------------
+Query to fetch latest record from table 
 
-
+select e.employee_id,e.department_id, e.salary from employees e1  join
+ (select department_id,  max(salary) sal from employees group by department_id) tm
+  on (e1.department_id = tm.department_id and e1.salary = tm.sal) order by e1.department_id; 
