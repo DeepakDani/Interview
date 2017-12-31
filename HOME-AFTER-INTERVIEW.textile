@@ -62,5 +62,42 @@ Yes Bank :::
 15) sqoop depely
 16) data frame deeply
 17) impala internal architechture
-18) 
+--------------------------------------------------------------------------------------------------------------
+DataMetica interview ::
+
+first round ::
+1. static and dynamic partition ??
+2. add , drop partition , rename table.
+3. bucketing .
+4. how to transfer data from one cluster to other ? such as from dev enviroment to Production .
+5. how to do incremental load using sqoop and how to update last value in production for incremental load. how sqoop job stores last value ?
+6 . use of splt by in sqoop . difference between split by and boundry query in sqoop and if in one table there is no primary key and no split by command then whether sqoop command will run or not if yes then how ??
+7  .difference between sort by , order by , disctributed by , culster by .
+8. file formats ??
+9. what is reacord reader ??
+9. role of driver and worker node in spark?
+10. you have one table employee having data like ::
+1,ratnesh,2-jan
+2,amit, 12-jan
+1,ratnesh, 23-jan
+
+find the latest updated record for each employess ??
+select id, name, date from employee where rowid(select max(rowid) from employee group by id having count(*) > 1) 
+
+second round ::
+1.all unix command
+2. pig 
+3. parameter in hive like .select * from $emp;
+4.how to set no of mapper in hive .
+5. how to set no of replica using hdfs command ?
+6. what are hdfs command ?
+7. map join in hive ?
+8. how to set spark memory for perticular job ?
+9. how did you schedule job for hive and sqoop ?
+10. if you hive script like abc.hql how can you execute this ?
+11. how to load updated records into hive using sqoop ?
+12. spark submit command 
+
+------------------------------------------------------------------------------------------ 
+
  
