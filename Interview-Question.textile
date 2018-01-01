@@ -288,4 +288,11 @@ What is the size of cluster ?
 
 What is the size of data ? 
 CREATE TABLE IF NOT EXISTS dataset1 ( eid int, first_name String, last_name String, email String, gender String, ip_address String) row format delimited fields terminated BY ',' tblproperties("skip.header.line.count"="1");
+---------------------------------------------------------------------------------------------
+You need to use the special hiveconf for variable substitution. e.g.
 
+hive> set CURRENT_DATE='2012-09-16';
+hive> select * from foo where day >= '${hiveconf:CURRENT_DATE}'
+similarly, you could pass on command line:
+
+% hive -hiveconf CURRENT_DATE='2012-09-16' -f test.hql
