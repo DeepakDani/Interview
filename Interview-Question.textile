@@ -296,3 +296,18 @@ hive> select * from foo where day >= '${hiveconf:CURRENT_DATE}'
 similarly, you could pass on command line:
 
 % hive -hiveconf CURRENT_DATE='2012-09-16' -f test.hql
+------------------------------------------------------------------------------------------------------
+
+Why and When to use lastmodified mode?
+⇛ lastmodified works on time-stamped data
+⇛ Use this when rows of the source table may be updated
+⇛ And each such update will set the value of a last-modified column to the current timestamp
+⇛ Rows where the check column holds a timestamp more recent than the timestamp specified with --last-value are imported
+When to use append mode?
+⇛ Works for numerical data that is incrementing over time, such as auto-increment keys
+⇛ When importing a table where new rows are continually being added with increasing row id values
+Arguments which control incremental imports:―
+⇛ --check-column <col> Specifies the column to be examined when determining which rows to import.
+⇛ The column SHOULD NOT be of type (Char/NChar/VarChar/VarNChar/LongVarChar/LongNVarChar)
+⇛ --incremental <mode> Specifies how Sqoop determines which rows are new.
+⇛ Legal values for mode include append and lastmodified.
