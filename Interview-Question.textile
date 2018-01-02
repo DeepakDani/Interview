@@ -311,3 +311,34 @@ Arguments which control incremental imports:―
 ⇛ The column SHOULD NOT be of type (Char/NChar/VarChar/VarNChar/LongVarChar/LongNVarChar)
 ⇛ --incremental <mode> Specifies how Sqoop determines which rows are new.
 ⇛ Legal values for mode include append and lastmodified.
+
+ Before creating table, you must take care of field DATATYPES to avoid any loss of data or discrepancies. Most of the issues mainly occurs with Date, DateTime or TimeStamp fields. It is advisable to use “string” datatype for date-time fields. See Hive-QL command for creating Hive External table.
+
+Incremental import of data from MySQL to Hive (after initial load is done)
+From 2nd load onwards you just need to import data as HDFS load ONLY.
+Use below SQOOP command for incremental loads.
+sqoop import \
+      --connect jdbc:mysql://192.168.88.129/myFinDB \
+      --username SOMEUSER -P -m 1 \
+      --table TWITTER_TBL \		# Table name in MySQL
+      --append \
+      --hive-database hcatFinDB \
+      --hive-table TWITTER_TBL_HIVE \		# Existing table name in Hive
+      --where "TWEET_DATE <= '2015-12-22'" \
+      --check-column TWEET_DATE \
+      --last-value 2015-12-21 \
+      --incremental lastmodified \
+      --fields-terminated-by '\t' \
+      --target-dir hdfs://sandbox.hortonworks.com:8020/user/hue/HiveExtTbls/twitter_tbl_hive;
+Create a SQOOP JOB for the above command in-order to use it for regular imports as shown below.
+# Creating Sqoop Job
+sqoop job --create incrementalImportJob -- import \
+      --connect jdbc:mysql://192.168.88.129/myFinDB \
+      --username SOMEUSER -P -m 1 \
+      --table TWITTER_TBL \		# Table name in MySQL
+      --append \
+      --check-column TWEET_DATE \
+      --last-value 2015-12-21 \
+      --incremental lastmodified \
+      --fields-terminated-by '\t' \
+      --target-dir hdfs://sandbox.hortonworks.com:8020/user/hue/HiveExtTbls/twitter_tbl_hive;
