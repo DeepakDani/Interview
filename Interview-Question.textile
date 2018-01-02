@@ -342,3 +342,12 @@ sqoop job --create incrementalImportJob -- import \
       --incremental lastmodified \
       --fields-terminated-by '\t' \
       --target-dir hdfs://sandbox.hortonworks.com:8020/user/hue/HiveExtTbls/twitter_tbl_hive;
+------------------------------------------------------------------------------------------------------
+Best way to merge multi part file into single file?
+We have huge data set in hdfs in multiple files and want to merge them all into single file to be used by our customers. We tried using hdfs getmerge command but running into OOM issues on edge node. Any other ways to achieve this merge functionality?
+
+Answer :::If you are using spark then use below code:
+sc.textFile("hdfs://...../part*).coalesce(1).saveAsTextFile("hdfs://...../filename)
+This will merge all part files into one and save it again into hdfs location
+------------------------------------------------------------------------------------------------------------
+Hadoop fs -getmerge -nl <source file path> <local system destination path>
