@@ -8,3 +8,6 @@ hadoop fs -put /home/saurzcode/Samplefile.txt  /user/saurzcode/dir3/
 Copies/Downloads files to the local file system
 hadoop fs -get /user/saurzcode/dir3/Samplefile.txt /home/
 hadoop fs -cat /user/saurzcode/dir1/abc.txt
+hadoop fs -copyFromLocal /home/saurzcode/abc.txt  /user/saurzcode/abc.txt
+hadoop fs -copyToLocal [-ignorecrc] [-crc] URI <localdst>
+hadoop fs -mv /user/saurzcode/dir1/abc.txt /user/saurzcode/dir2
