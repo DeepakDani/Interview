@@ -355,3 +355,6 @@ Hadoop fs -getmerge -nl <source file path> <local system destination path>
 how to set number of mapper and reducer for hive ?
  mapreduce.job.maps
 mapreduce.job.reduces
+-------------------------------------------------------------------------------
+difference between map and mapPartition ?
+map works the function being utilized at a per element level while  mapPartitions exercises the function at the partition level.
