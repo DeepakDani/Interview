@@ -352,3 +352,6 @@ This will merge all part files into one and save it again into hdfs location
 ------------------------------------------------------------------------------------------------------------
 Hadoop fs -getmerge -nl <source file path> <local system destination path>
 -----------------------------------------------------------------------------------------------
+how to set number of mapper and reducer for hive ?
+ mapreduce.job.maps
+mapreduce.job.reduces
