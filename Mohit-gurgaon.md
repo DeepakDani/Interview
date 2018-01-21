@@ -52,3 +52,15 @@ Query to fetch latest record from table
 select e.employee_id,e.department_id, e.salary from employees e1  join
  (select department_id,  max(salary) sal from employees group by department_id) tm
   on (e1.department_id = tm.department_id and e1.salary = tm.sal) order by e1.department_id; 
+--------------------------------------------------------------------------------------------------------------
+http://www.folkstalk.com/2011/12/sql-queries-interview-questions-oracle.html
+SQL Queries Interview Questions - Oracle Part 1
+
+1. Write a SQL query to find the products which have continuous increase in sales every year?
+select product_id,(quantity - name) as name1  from (select product_id, quantity, lead(quantity,1,0) over(partition by product_id order by product_id) as name from sales) where (quantity - name) >=0;
+
+2. Write a SQL query to find the products which does not have sales at all?
+select p.product_id, p.product_name from products p left outer join sales s on (p.product_id = s.product_id ) where s.product_id is null
+
+3. Write a SQL query to find the products whose sales decreased in 2012 compared to 2011?
+select p.product_id,p.product_name from products p ,(select product_id from (select product_id,quantity,lag(quantity,1,0) over(partition by product_id order by product_id) as back from sales where year in (2011, 2012)) where (quantity - back) < 0)b where p.product_id = b.product_id;
