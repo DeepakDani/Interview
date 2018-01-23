@@ -1,0 +1,54 @@
+Create a directory in HDFS at given path(s).
+hadoop fs -mkdir <paths>
+
+List the contents of a directory.
+hadoop fs -ls /user/saurzcode
+hadoop fs -put /home/saurzcode/Samplefile.txt  /user/saurzcode/dir3/
+
+Copies/Downloads files to the local file system
+hadoop fs -get /user/saurzcode/dir3/Samplefile.txt /home/
+hadoop fs -cat /user/saurzcode/dir1/abc.txt
+hadoop fs -copyFromLocal /home/saurzcode/abc.txt  /user/saurzcode/abc.txt
+hadoop fs -copyToLocal [-ignorecrc] [-crc] URI <localdst>
+hadoop fs -mv /user/saurzcode/dir1/abc.txt /user/saurzcode/dir2
+
+
+cat ratnesh.txt | grep  -r 'name'
+
+grep -w "abc" file
+grep -w "abe" file	
+grep -c 
+
+cat file1
+cat file1 file2 file3 > file4
+cat filename | grep "filename"c
+
+to open perticular line in file
+cat file.txt | sed  -n '52p' (file)
+
+sed  -Replacing or substituting string : Sed command is mostly used to replace the text in a file. The below simple sed command replaces the word “unix” with “linux” in the file.
+$sed 's/unix/linux/' geekfile.txt
+
+to delete fine from 5th file:
+sed '5d' filename.txt
+
+To delete last line
+sed '$d' filename.txt
+
+
+name of commands :
+ls 
+mkdir
+cd
+pwd
+cp
+mv
+rm
+rmdir
+mkdir
+tough
+chmod
+grep
+sed
+cat
+
