@@ -1,3 +1,8 @@
+How to connect oracle 10g database with python 2.7
+1) download get-pip.py // copy code and paste in local file and run
+2)download cx_oracle from  https://sourceforge.net/projects/cx-oracle/files/5.1.2/ and install
+
+-----------------------------------------------------------------------------------------------------------------
 Python code 
 ------------
 1.Python: Get a string made of the first 2 and the last 2 chars from a given a string
