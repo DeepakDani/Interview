@@ -53,6 +53,11 @@ select e.employee_id,e.department_id, e.salary from employees e1  join
  (select department_id,  max(salary) sal from employees group by department_id) tm
   on (e1.department_id = tm.department_id and e1.salary = tm.sal) order by e1.department_id; 
 --------------------------------------------------------------------------------------------------------------
+query to delete duplicates
+select distinct *  from ratnesh1_bkp;
+with abc as (select rat_sk, no, name, amount ,row_number() over(partition by rat_sk, no, name, amount order by rat_sk, no, name, amount) col from ratnesh1_bkp) select no, name, amount,col from abc where col = 1; 
+
+------------------------------------------------------------------------------------------------------------
 http://www.folkstalk.com/2011/12/sql-queries-interview-questions-oracle.html
 SQL Queries Interview Questions - Oracle Part 1
 
