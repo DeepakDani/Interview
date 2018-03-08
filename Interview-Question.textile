@@ -360,3 +360,12 @@ difference between map and mapPartition ?
 map works the function being utilized at a per element level while  mapPartitions exercises the function at the partition level.
 --------------------------------------------------------------------------------
 oalesce uses existing partitions to minimize the amount of data that's shuffled.  repartition creates new partitions and does a full shuffle.  coalesce results in partitions with different amounts of data (sometimes partitions that have much different sizes) and repartition results in roughly equal sized partitions.
+--------------------------------------------------------------------------------
+hive - how to set parquet/ORC as default output format
+For external tables, execute the following:
+
+set hive.default.fileformat=Parquet
+For managed tables, execute the following:
+
+set hive.default.fileformat.managed=Parquet
+This would be set only for the current session. If you want to set these for your entire hive configuration, set these properties in your hive-site.xml and restart your hive service.
