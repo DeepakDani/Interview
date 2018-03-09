@@ -22,3 +22,5 @@ https://github.com/XD-DENG/Spark-practice/blob/master/others/basic_operations.py
 https://github.com/vaquarkhan/vk-wiki-notes/wiki/Problems-Spark-SQL-solves /// comulsary
 https://www.cloudera.com/documentation/enterprise/release-notes/topics/cdh_rn_spark_ki.html // issues
 https://spark.apache.org/docs/1.1.1/api/python/pyspark.rdd-pysrc.html#RDD.__init__ ----- //importent
+
+https://github.com/apache/spark/blob/master/examples/src/main/python/sql/arrow.py
