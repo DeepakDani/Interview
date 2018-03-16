@@ -84,3 +84,5 @@ Secondary NameNode Functions:
 how to set default file in hive : 
 External  hive.default.fileformat
 Managed	  hive.default.fileformat.managed 
+
+
