@@ -85,4 +85,68 @@ how to set default file in hive :
 External  hive.default.fileformat
 Managed	  hive.default.fileformat.managed 
 
+5. HiveServer2 logs filled with "javax.security.sasl.SaslException: GSS initiate failed"
+
+
+2016-12-22 16:36:49,643 WARN  ipc.Client (Client.java:run(685)) - Exception encountered while connecting to the server :
+ javax.security.sasl.SaslException: GSS initiate failed [Caused by GSSException: No valid credentials provided (Mechanism level: Failed to find any Kerberos tgt)]
+     at com.sun.security.sasl.gsskerb.GssKrb5Client.evaluateChallenge(GssKrb5Client.java:212)
+     at org.apache.hadoop.security.SaslRpcClient.saslConnect(SaslRpcClient.java:413)
+     at org.apache.hadoop.ipc.Client$Connection.setupSaslConnection(Client.java:563)
+     at org.apache.hadoop.ipc.Client$Connection.access$1900(Client.java:378)
+     at org.apache.hadoop.ipc.Client$Connection$2.run(Client.java:732)
+     at org.apache.hadoop.ipc.Client$Connection$2.run(Client.java:728)
+     at java.security.AccessController.doPrivileged(Native Method)
+     at javax.security.auth.Subject.doAs(Subject.java:415)
+     at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1709)
+     at org.apache.hadoop.ipc.Client$Connection.setupIOstreams(Client.java:727)
+     at org.apache.hadoop.ipc.Client$Connection.access$2900(Client.java:378)
+     at org.apache.hadoop.ipc.Client.getConnection(Client.java:1492)
+     at org.apache.hadoop.ipc.Client.call(Client.java:1402)
+     at org.apache.hadoop.ipc.Client.call(Client.java:1363)
+     at org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker.invoke(ProtobufRpcEngine.java:229)
+     at com.sun.proxy.$Proxy23.getFileInfo(Unknown Source)
+     at org.apache.hadoop.hdfs.protocolPB.ClientNamenodeProtocolTranslatorPB.getFileInfo(ClientNamenodeProtocolTranslatorPB.java:773)
+     at sun.reflect.GeneratedMethodAccessor17.invoke(Unknown Source)
+     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+     at java.lang.reflect.Method.invoke(Method.java:606)
+     at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:256)
+     at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:104)
+     at com.sun.proxy.$Proxy24.getFileInfo(Unknown Source)
+     at org.apache.hadoop.hdfs.DFSClient.getFileInfo(DFSClient.java:2162)
+     at org.apache.hadoop.hdfs.DistributedFileSystem$24.doCall(DistributedFileSystem.java:1363)
+     at org.apache.hadoop.hdfs.DistributedFileSystem$24.doCall(DistributedFileSystem.java:1359)
+     at org.apache.hadoop.fs.FileSystemLinkResolver.resolve(FileSystemLinkResolver.java:81)
+     at org.apache.hadoop.hdfs.DistributedFileSystem.getFileStatus(DistributedFileSystem.java:1359)
+     at org.apache.hadoop.fs.FileSystem.exists(FileSystem.java:1424)
+     at org.apache.ranger.audit.destination.HDFSAuditDestination.getLogFileStream(HDFSAuditDestination.java:226)
+     at org.apache.ranger.audit.destination.HDFSAuditDestination.logJSON(HDFSAuditDestination.java:123)
+     at org.apache.ranger.audit.queue.AuditFileSpool.sendEvent(AuditFileSpool.java:890)
+     at org.apache.ranger.audit.queue.AuditFileSpool.runDoAs(AuditFileSpool.java:838)
+     at org.apache.ranger.audit.queue.AuditFileSpool$2.run(AuditFileSpool.java:759)
+     at org.apache.ranger.audit.queue.AuditFileSpool$2.run(AuditFileSpool.java:757)
+     at java.security.AccessController.doPrivileged(Native Method)
+     at javax.security.auth.Subject.doAs(Subject.java:356)
+     at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1689)
+     at org.apache.ranger.audit.queue.AuditFileSpool.run(AuditFileSpool.java:765)
+     at java.lang.Thread.run(Thread.java:745)
+ Caused by: GSSException: No valid credentials provided (Mechanism level: Failed to find any Kerberos tgt)
+     at sun.security.jgss.krb5.Krb5InitCredential.getInstance(Krb5InitCredential.java:147)
+     at sun.security.jgss.krb5.Krb5MechFactory.getCredentialElement(Krb5MechFactory.java:121)
+     at sun.security.jgss.krb5.Krb5MechFactory.getMechanismContext(Krb5MechFactory.java:187)
+     at sun.security.jgss.GSSManagerImpl.getMechanismContext(GSSManagerImpl.java:223)
+     at sun.security.jgss.GSSContextImpl.initSecContext(GSSContextImpl.java:212)
+     at sun.security.jgss.GSSContextImpl.initSecContext(GSSContextImpl.java:179)
+     at com.sun.security.sasl.gsskerb.GssKrb5Client.evaluateChallenge(GssKrb5Client.java:193)
+ROOT CAUSE:
+
+hiveserver2 configured with ranger plugin which writes hdfs audit event to both database as well as hdfs. the hiveserver2 thread hiveServer2.async.multi_dest.batch_hiveServer2.async.multi_dest.batch.hdfs_destWriter is trying to write audit events on hdfs but due to TGT got expired.
+
+WORKAROUND:
+
+disable audit events write on hdfs.
+
+RESOLUTION:
+
+this has been fixed in https://issues.apache.org/jira/browse/RANGER-1136, so apply a patch to avoid this.
 
