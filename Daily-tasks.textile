@@ -80,3 +80,7 @@ Secondary NameNode Functions:
 3.  If NameNode is failed, File System metadata can be recovered from the last saved FsImage on the Secondary NameNode but Secondary NameNode can’t take the primary NameNode’s functionality.
 
 4. Check pointing of File system metadata is performed. 
+
+how to set default file in hive : 
+External  hive.default.fileformat
+Managed	  hive.default.fileformat.managed 
