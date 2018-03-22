@@ -369,3 +369,12 @@ For managed tables, execute the following:
 
 set hive.default.fileformat.managed=Parquet
 This would be set only for the current session. If you want to set these for your entire hive configuration, set these properties in your hive-site.xml and restart your hive service.
+
+--------------------------------------------------------------------------------------------------------------------
+Difference btw database and datawarehouse
+
+Data warehouse is generally for huge storage of historical records
+It is used for reporting purposes whereas database is for current day to online transaction processing. 
+Normally, the data in data warehouse is not supposed to be updated only inserts should happen into data warehouse
+Ideally, the current data should become part of data warehouse, after some pre-decided time period, after which it will only be used for analysis purpose and not for transactions.
+Most important difference between them is: in Database, data is normally kept in normalized format whereas in data warehouse, it is purposely De-normalized to avoid joins while generating huge reports to save time. 
