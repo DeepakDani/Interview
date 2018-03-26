@@ -461,3 +461,40 @@ Number of Mappers depends on the number of input splits calculated by the job cl
 If you write a simple query like select Count(*) from company only one Map reduce Program will be executed.
 So, in short mappers are decided by HDFS and reducers can be customized.
 ---------------------------------------------------------------------------------------
+STACK OVERFLOW
+I am migrating from Impala to SparkSQL, using the following code to read a table:
+
+my_data = sqlContext.read.parquet('hdfs://my_hdfs_path/my_db.db/my_table')
+How do I invoke SparkSQL above, so it can return something like:
+
+'select col_A, col_B from my_table'
+
+aNS::Pyspark.sql import SQLContext
+Df = sqlContext.read.parquet(:””)
+Df.select(“id”,”name”).show()
+SqlContext.registerDataFrameAsTable(df,”table1”)
+sqlContext.sql(“select * from table1”).show()
+--------------------------------------------------------------------------------------------
+Hive : Optimize a long running Query
+ans ::
+
+A simple Hive SQL query run on a 50GB size employee log table is running for hours.
+
+select dept,count(distinct emp_id) from emp_log group by dept;    
+There are just 4-5 departments and a huge number of employees per department.
+
+It was run with Hive 0.14 + Tez on 1TB memory. Is there any way to optimize this code block for better performance?
+ans:::
+
+You should try that to avoid count(distinct foo) :
+
+SELECT dept, size(collect_list(emp_id)) nb_emps
+FROM emp_log 
+GROUP BY dept
+count(distinct x) is ineffective in HIVE 0.14.
+
+Also you should activate statistics for these columns:
+
+ANALYZE TABLE emp_log COMPUTE STATISTICS;
+ANALYZE TABLE emp_log COMPUTE STATISTICS FOR COLUMNS dept, emp_id;
+---------------------------------------------------------------------------------------------
