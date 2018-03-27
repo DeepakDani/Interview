@@ -498,3 +498,24 @@ Also you should activate statistics for these columns:
 ANALYZE TABLE emp_log COMPUTE STATISTICS;
 ANALYZE TABLE emp_log COMPUTE STATISTICS FOR COLUMNS dept, emp_id;
 ---------------------------------------------------------------------------------------------
+How to save DataFrame directly to Hive?
+Ans:: 
+df.select(df.col("col1"),df.col("col2"), df.col("col3")) .write().mode("overwrite").saveAsTable("schemaName.tableName");
+or
+df.write().mode(SaveMode.Overwrite).saveAsTable("dbName.tableName");
+---------------------------------------------------------------------------------------
+Save Spark dataframe as dynamic partitioned table in Hive
+
+I have a sample application working to read from csv files into a dataframe. The dataframe can be stored to a Hive table in parquet format using the method  df.saveAsTable(tablename,mode).
+The above code works fine, but I have so much data for each day that i want to dynamic partition the hive table based on the creationdate(column in the table).
+
+is there any way to dynamic partition the dataframe and store it to hive warehouse. Want to refrain from Hard-coding the insert statement using hivesqlcontext.sql(insert into table partittioin by(date)....).
+
+Question can be considered as an extension to :How to save DataFrame directly to Hive?
+
+ans :::df is a dataframe with year, month and other columns
+
+df.write.partitionBy('year', 'month').saveAsTable(...)
+or
+
+df.write.partitionBy('year', 'month').insertInto(...)
