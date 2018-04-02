@@ -519,3 +519,48 @@ df.write.partitionBy('year', 'month').saveAsTable(...)
 or
 
 df.write.partitionBy('year', 'month').insertInto(...)
+
+--------------------------------------------------------------------------------------------------------------------------
+Find maximum element in an RDD in Pyspark by using map/filter
+
+a = sc.parallelize((1,9,3,10))
+I want to find the maximum element in a without using any max function.
+
+I tried a.filter( lambda x,y: x if x>y else y)
+
+I am not able to compare elements in the RDD. How do I use for loop or if else condition properly in the map/filter function. Is it possible?
+
+Thank you.
+
+I was trying to post a different question. But not able to.
+
+a = sc.parallelize((11,7,20,10,1,7))
+I want to sort the elements in increasing order without using sort() function.
+
+I tried:
+
+def srt(a,b):
+if a>b:
+    i=a
+    a=b
+    b=i   
+
+final=a.map(lambda x,y: srt(x,y))
+I am not getting the required result.
+
+I want to get
+
+  (1,7,7,10,11,20)
+thank you.
+
+ANSWER 👍 
+
+1
+down vote
+accepted
+You cannot find the max/min using filters. You may achieve that using comparison in a reduce operation:
+
+a = sc.parallelize([1,9,3,10])
+max_val = a.reduce(lambda a, b: a if a > b else b)
+The lambda just compares and returns the bigger of 2 values.
+------------------------------------------------------------------------------------
