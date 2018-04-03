@@ -564,3 +564,18 @@ a = sc.parallelize([1,9,3,10])
 max_val = a.reduce(lambda a, b: a if a > b else b)
 The lambda just compares and returns the bigger of 2 values.
 ------------------------------------------------------------------------------------
+how to increase java heap size in Hadoop
+
+
+3
+down vote
+accepted
+For that you may execute the following before executing hadoop command:
+
+export HADOOP_HEAPSIZE=4096
+Alternatively, you can achieve the same thing by adding the following permanent setting in your mapred-site.xml file, this file lies in HADOOP_HOME/conf/ :
+
+<property>
+    <name>mapred.child.java.opts</name>
+    <value>-Xmx4096m</value>
+</property>
