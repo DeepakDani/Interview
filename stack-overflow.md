@@ -566,10 +566,7 @@ The lambda just compares and returns the bigger of 2 values.
 ------------------------------------------------------------------------------------
 how to increase java heap size in Hadoop
 
-
-3
-down vote
-accepted
+ans 👍 
 For that you may execute the following before executing hadoop command:
 
 export HADOOP_HEAPSIZE=4096
@@ -579,3 +576,13 @@ Alternatively, you can achieve the same thing by adding the following permanent 
     <name>mapred.child.java.opts</name>
     <value>-Xmx4096m</value>
 </property>
+--------------------------------------------------------------------------------
+select * from table -- no mapper and no reducer
+
+check in ::explain select * from table;
+When ever you do aggregations then the reducer phase will be executed along with map phase.
+
+select count(*) from table --- one reducer and one mapper
+select count(*) from table group by column_name ; -- two reducer and one mapper
+select count(*) cnt from foo group by name order by cnt; -- 3 reducer and one mapper
+select name from foo; -- only mapper
