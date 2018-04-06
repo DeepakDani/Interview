@@ -586,3 +586,54 @@ select count(*) from table --- one reducer and one mapper
 select count(*) from table group by column_name ; -- two reducer and one mapper
 select count(*) cnt from foo group by name order by cnt; -- 3 reducer and one mapper
 select name from foo; -- only mapper
+------------------------------------------------------------------------------------------------
+
+16
+down vote
+Consider a table with 3 records which you already imported to hdfs using sqoop
+
++------+------------+----------+------+------------+
+| sid  | city       | state    | rank | rDate      |
++------+------------+----------+------+------------+
+|  101 | Chicago    | Illinois |    1 | 2014-01-25 |
+|  101 | Schaumburg | Illinois |    3 | 2014-01-25 |
+|  101 | Columbus   | Ohio     |    7 | 2014-01-25 |
++------+------------+----------+------+------------+
+
+sqoop import --connect jdbc:mysql://localhost:3306/ydb --table yloc --username root -P
+Now you have additional records in the table but no updates on existing records
+Now you have additional records in the table but no updates on existing records
+
++------+------------+----------+------+------------+
+| sid  | city       | state    | rank | rDate    |
++------+------------+----------+------+------------+
+|  101 | Chicago    | Illinois |    1 | 2014-01-25 |
+|  101 | Schaumburg | Illinois |    3 | 2014-01-25 |
+|  101 | Columbus   | Ohio     |    7 | 2014-01-25 |
+|  103 | Charlotte  | NC       |    9 | 2013-04-22 |
+|  103 | Greenville | SC       |    9 | 2013-05-12 |
+|  103 | Atlanta    | GA       |   11 | 2013-08-21 |
++------+------------+----------+------+------------+
+Here you should use an --incremental append with --check-column which specifies the column to be examined when determining which rows to import.
+
+sqoop import --connect jdbc:mysql://localhost:3306/ydb --table yloc --username root -P --check-column rank --incremental append --last-value 7
+
+The above code will insert all the new rows based on the last value.
+
+Now we can think of second case where there are updates in rows
+
++------+------------+----------+------+------------+
+| sid  | city       | state    | rank | rDate      |
++------+------------+----------+------+------------+
+|  101 | Chicago    | Illinois |    1 | 2015-01-01 |
+|  101 | Schaumburg | Illinois |    3 | 2014-01-25 |
+|  101 | Columbus   | Ohio     |    7 | 2014-01-25 |
+|  103 | Charlotte  | NC       |    9 | 2013-04-22 |
+|  103 | Greenville | SC       |    9 | 2013-05-12 |
+|  103 | Atlanta    | GA       |   11 | 2013-08-21 |
+|  104 | Dallas     | Texas    |    4 | 2015-02-02 |
+|  105 | Phoenix    | Arzona   |   17 | 2015-02-24 |
++------+------------+----------+------+------------+
+Here we use incremental lastmodified where we will fetch all the updated rows based on date.
+
+sqoop import --connect jdbc:mysql://localhost:3306/ydb --table yloc --username root -P   --check-column rDate --incremental lastmodified --last-value 2014-01-25 --target-dir yloc/loc
