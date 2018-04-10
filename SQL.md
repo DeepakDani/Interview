@@ -58,3 +58,14 @@ INSERT INTO tgt_products select a.product_id,a.product_name,TO_DATE(sysdate, 'YY
  left outer join tgt_products t 
  on (a.product_id = t.product_id)
  where t.product_id is null or (to_date(sysdate, 'YYYY-MON-DD') - TO_DATE(t.insert_date, 'DD-MON-YY')) > 30;
+
+----------------------------------------------------------------------------------------------------------------------
+ Q) 
+Load the below CONTENTS table into the target table. 
+The requirements to load the target table are: 
+Load only one content type at a time into the target table.
+The target table should always contain only one contain type.
+The loading of content types should follow round-robin style. First MOVIE, second AUDIO, Third MAGAZINE and again fourth Movie.
+Ans ::
+
+
