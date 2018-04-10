@@ -42,3 +42,19 @@ method 2)
 ---4) Write a query to find the number of products sold in each year?
 
 select year,count(1) num_products from sales group by year;
+
+--------------------------------------------------------------------------------------------------------------------------
+SQL Query Interview Questions - Part 5
+1. Load the below products table into the target table.
+
+The requirements for loading the target table are:
+Select only 2 products randomly.
+Do not select the products which are already loaded in the target table with in the last 30 days.
+Target table should always contain the products loaded in 30 days. It should not contain the products which are loaded prior to 30 days.
+
+ANS :+1: 
+
+INSERT INTO tgt_products select a.product_id,a.product_name,TO_DATE(sysdate, 'YYYY-MON-DD') from (select * from (select * from products order by dbms_random.value ) where rownum <=2)a 
+ left outer join tgt_products t 
+ on (a.product_id = t.product_id)
+ where t.product_id is null or (to_date(sysdate, 'YYYY-MON-DD') - TO_DATE(t.insert_date, 'DD-MON-YY')) > 30;
