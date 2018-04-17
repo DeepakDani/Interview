@@ -68,5 +68,14 @@ The target table should always contain only one contain type.
 The loading of content types should follow round-robin style. First MOVIE, second AUDIO, Third MAGAZINE and again fourth Movie.
 Ans ::
 -----------------------------------------------------------------------------------------------------------------------
+4th highest salary ::
+1)
+select * from (
+  select salary, ROW_NUMBER() over (ORDER BY salary) as row_no from emp group by salary) res 
+where res.row_no = 4
+2)  second highest salary ::
+select max(salary) from table where salary <(select max(salary) from table)
 
+3) select salary from employees e where 2= (select count(distinct salary) from employees where e.salary <=e1.salary);
+4) select * from(select salary from (select salary from (select salary from table order by salary desc)where rownum < = 5) order by salary asc) where rownum=1; 
 
