@@ -637,3 +637,13 @@ Now we can think of second case where there are updates in rows
 Here we use incremental lastmodified where we will fetch all the updated rows based on date.
 
 sqoop import --connect jdbc:mysql://localhost:3306/ydb --table yloc --username root -P   --check-column rDate --incremental lastmodified --last-value 2014-01-25 --target-dir yloc/loc
+-----------------------------------------------------------------------------------------------------------------
+Many times when I run a sqoop command it ignores the number of mappers i tell it to use.
+
+Common examples are:
+
+--num-mappers 2 and it uses 4 instead
+--num-mappers 8 and it uses 10 instead
+Also, sqoop sometimes creates files that have no data in them.
+
+Any ideas about these issues?
