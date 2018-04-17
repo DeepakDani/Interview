@@ -78,4 +78,9 @@ select max(salary) from table where salary <(select max(salary) from table)
 
 3) select salary from employees e where 2= (select count(distinct salary) from employees where e.salary <=e1.salary);
 4) select * from(select salary from (select salary from (select salary from table order by salary desc)where rownum < = 5) order by salary asc) where rownum=1; 
+------------------------------------------------------------------------------------------------------------------
+is there a Hive query to quickly find table size (i.e. number of rows) without launching a time-consuming MapReduce job? 
+ans :: 
+show tableproperties table_name;
+-----------------------------------------------------------------------------------------------------------
 
