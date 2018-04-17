@@ -67,5 +67,6 @@ Load only one content type at a time into the target table.
 The target table should always contain only one contain type.
 The loading of content types should follow round-robin style. First MOVIE, second AUDIO, Third MAGAZINE and again fourth Movie.
 Ans ::
+-----------------------------------------------------------------------------------------------------------------------
 
 
