@@ -1,3 +1,22 @@
+List of Companies i have attended interview:
+Infosys
+L&T infotech
+TCS
+Data Matica
+Xebia
+ITC infotech
+Deloitte
+Tech mahindra
+DXC(CSC)
+Infosys(selected)
+Yes Bank
+Lagato
+Emids(selected)
+
+
+
+
+-----------------------------------------------------------------------------
 1.brodcoast variable in spark.
 2 reduceByKey,groupByKey .....
 3.files format .
