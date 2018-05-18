@@ -14,9 +14,11 @@ Lagato
 Emids(selected)
 Mphasis
 Relevence Lab()
-L&T infotech(selected)
+L&T infotech()
 Mobilia()
-
+Infosoft
+Societe Generale
+dunhamby
 
 
 -----------------------------------------------------------------------------
